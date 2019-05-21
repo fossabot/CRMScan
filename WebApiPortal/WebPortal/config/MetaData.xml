@@ -1,0 +1,1716 @@
+﻿<viewComposition>
+  <pages>
+    <page id="homePage" title="Home" isDefault="true">
+      <pageState id="search_home">
+        <viewDefinition id="LoadAndSearchView" title="Contacts"></viewDefinition>
+        <viewDefinition id="HomPageView" title="Home"></viewDefinition>
+      </pageState>
+      <pageState id="searchlist">
+        <viewDefinition id="ContactSearchView" title="Contacts"></viewDefinition>
+        <viewDefinition id="AllContactsTile" title="Contacts">AllContactsTile</viewDefinition>
+      </pageState>
+      <pageState id="view">
+        <viewDefinition id="ViewContact" title="Contact"></viewDefinition>
+        <viewDefinition id="NotesAttachments" title="Attachemnts"></viewDefinition>
+        <viewDefinition id="ContactTasks" title="Attachemnts"></viewDefinition>
+      </pageState>
+      <pageState id="create">
+        <viewDefinition id="CreateContact" title="New Contact"></viewDefinition>
+      </pageState>
+      <pageState id="edit">
+        <viewDefinition id="EditContact" title="Edit Contact"></viewDefinition>
+      </pageState>
+      <pageState id="attach">
+        <viewDefinition id="FileAttachment" title="Attachment"></viewDefinition>
+      </pageState>
+      <pageState id="purchase">
+        <viewDefinition id="CreatePurchase" title="Create Purchase"></viewDefinition>
+      </pageState>
+      <pageState id="createTask">
+        <viewDefinition id="CreateTask" title="Create Task"></viewDefinition>
+      </pageState>    
+    </page>
+    <page id="contacts" title="Contacts" >
+      <pageState id="searchlist">
+        <viewDefinition id="ContactSearchView" title="Contacts"></viewDefinition>
+        <viewDefinition id="AllContactsTile" title="Contacts"></viewDefinition>
+      </pageState>
+      <pageState id="create">
+        <viewDefinition id="CreateContact" title="New Contact"></viewDefinition>
+      </pageState>
+      <pageState id="view">
+        <viewDefinition id="ViewContact" title="Contact"></viewDefinition>
+        <viewDefinition id="NotesAttachments" title="Attachemnts"></viewDefinition>
+        <viewDefinition id="ContactTasks" title="Attachemnts"></viewDefinition>
+      </pageState>
+      <pageState id="edit">
+        <viewDefinition id="EditContact" title="Edit Contact"></viewDefinition>
+      </pageState>
+      <pageState id="attach">
+        <viewDefinition id="FileAttachment" title="Attachment"></viewDefinition>
+      </pageState>
+      <pageState id="purchase">
+        <viewDefinition id="CreatePurchase" title="Create Purchase"></viewDefinition>
+      </pageState>
+      <pageState id="saveandnewpurchase">
+        <viewDefinition id="SaveAndNewPurchase" title="Create Purchase"></viewDefinition>
+      </pageState>
+      <pageState id="createTask">
+        <viewDefinition id="CreateTask" title="Create Task"></viewDefinition>
+      </pageState>
+      <!--<search>
+        <viewDefinition title="Contacts">ContactSearchView</viewDefinition>
+      </search>
+      <list>
+        <viewDefinition title="Contacts">AllContactsTile</viewDefinition>
+      </list>-->
+   
+    </page>
+   
+    
+    <page id="Notification" title="Notifications" isDefault="false" >
+      <pageState id="search_list">
+        <viewDefinition id="TaskSearchView" title="Search Tasks"></viewDefinition>
+        <viewDefinition id="RepTasksTile" title="List Tasks"></viewDefinition>
+      </pageState>
+      <pageState id="view">
+        <viewDefinition id="ViewTask" title="View Task"></viewDefinition>
+      </pageState>
+      <pageState id="create">
+        <viewDefinition id="CreateTask" title="Create Task"></viewDefinition>
+      </pageState>
+         
+    </page>
+    <page id="Email" title="Email Contacts" isDefault="false">
+      <pageState id="create">
+        <viewDefinition id="EmailPage" title="Email Contacts"></viewDefinition>
+      </pageState>
+      <pageState id="template">
+        <viewDefinition id="ViewEmailTemplate" title="Email Template"></viewDefinition>
+      </pageState>
+    
+    </page>
+    
+    <page id="ProfileSettings" title="Profile Settings" isDefault="false" hide="true">
+      <pageState id="edit">
+        <viewDefinition id="ContactProfileSettings" title="Profile Settings"></viewDefinition>
+      </pageState>      
+    </page>
+  </pages>
+  <viewParameters>
+    <viewParameter name="fullname" value=""></viewParameter>
+    <viewParameter name="contact_fullname" value=""></viewParameter>
+    <viewParameter name="contactid" value=""></viewParameter>
+  </viewParameters>
+  <dataDefinitions>
+    <dataDefinition name='Me' type='ODATA'>
+      <odataQuery>
+        <entity>contact</entity>
+        <select>
+          contactid,firstname,middlename,lastname,fullname,telephone1,emailaddress1,concap_emailoptin,concap_trade,concap_tradeother,concap_relationshiptype,concap_primarystorenumber,description,concap_convertedfrom,concap_convertedfromother,concap_cordlessplatforms,address1_name,concap_companysize,address1_line1,address1_line2,address1_line3,address1_city,address1_stateorprovince,address1_postalcode,concap_primarystorenumber,concap_password,concap_emailtext,concap_preferredcontactmethod,concap_positionincompany,concap_corded,concap_cordless,concap_fuelcordless,concap_accessories,concap_handtools,concap_empire,concap_brandspurchased,concap_totalsalesrevenue
+        </select>
+        <filters>
+
+          <filter viewParamName='LoggedInUserId' operator='Equal' attributeName='contactid'
+                  attributeValue=''>
+          </filter>
+
+        </filters>
+        <orders>
+          <order expression="firstname" orderBy="ASC"/>
+          <order expression="lastname" orderBy="ASC"/>
+        </orders>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+    <dataDefinition name='ContactsGrid' type='ODATA'>
+      <odataQuery>
+        <entity>contact</entity>
+        <select>
+          contactid,firstname,middlename,lastname,fullname,concap_emailoptin,concap_trade,concap_relationshiptype,concap_onekeytick
+        </select>
+        <filters>
+          <filter viewParamName='contact_fullname' operator='Like' attributeName='fullname' attributeValue='' attributeType='string'></filter>
+          <filter viewParamName='concap_trade' operator='Equal' attributeName='concap_trade' attributeValue='' attributeType='picklist'></filter>
+          <filter viewParamName='LoggedInUserId' operator='Equal' attributeName='concap_loggedinuser' attributeValue='' attributeType='lookup'></filter>
+          <filter viewParamName='' operator='Equal' attributeName='concap_emailoptin' attributeValue='true' attributeType='boolean'></filter>
+          <filter viewParamName='concap_relationshiptype' operator='Equal' attributeName='concap_relationshiptype' attributeValue='' attributeType='picklist'></filter>
+          <filter viewParamName='' operator='Equal' attributeName='statecode' attributeValue='0' attributeType='int'></filter>
+          <filter viewParamName='concap_primarylanguage' operator='Equal' attributeName='concap_primarylanguage' attributeValue='' attributeType='picklist'></filter>
+        </filters>
+        <orders>
+          <order expression="firstname" orderBy="ASC"/>
+          <order expression="lastname" orderBy="ASC"/>
+        </orders>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+    <dataDefinition name='AllContacts' type='ODATA'>
+      <odataQuery>
+        <entity>contact</entity>
+        <select>
+          contactid,firstname,middlename,lastname,fullname,telephone1,emailaddress1,concap_emailoptin,concap_trade,concap_tradeother,concap_relationshiptype,concap_primarystorenumber,description,concap_convertedfrom,concap_convertedfromother,concap_cordlessplatforms,address1_name,concap_companysize,address1_line1,address1_line2,address1_line3,address1_city,address1_stateorprovince,address1_postalcode,concap_primarystorenumber,concap_password,concap_emailtext,concap_preferredcontactmethod,concap_positionincompany,concap_corded,concap_cordless,concap_fuelcordless,concap_accessories,concap_handtools,concap_empire,concap_brandspurchased,concap_totalsalesrevenue,concap_onekeytick,concap_primarylanguage,concap_contactuseseservice
+        </select>
+        <filters>
+          <filter viewParamName='contactid' attributeName='contactid' operator='Equal'
+                  attributeValue=''></filter>
+          <filter viewParamName='fullname' operator='Like' attributeName='fullname' attributeValue=''>
+          </filter>
+          <filter viewParamName='tile_trade' operator='Equal' attributeName='concap_trade'
+                  attributeValue=''>
+          </filter>
+          <filter viewParamName='LoggedInUserId' operator='Equal' attributeName='concap_loggedinuser'
+                  attributeValue=''>
+          </filter>
+          <filter viewParamName='emailOptIn' operator='Equal' attributeName='concap_emailoptin' attributeValue='true'></filter>
+          <filter viewParamName='tile_relationshiptype' operator='Equal' attributeName='concap_relationshiptype'
+                  attributeValue=''></filter>
+          <filter viewParamName='' operator='Equal' attributeName='statecode' attributeValue='0' attributeType='int'></filter>
+          <filter viewParamName='tile_primarylanguage' operator='Equal' attributeName='concap_primarylanguage'
+                    attributeValue=''>
+          </filter>
+        </filters>
+        <orders>
+          <order expression="firstname" orderBy="ASC"/>
+          <order expression="lastname" orderBy="ASC"/>
+        </orders>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+
+    <dataDefinition name='AllStores' type='ODATA'>
+      <odataQuery>
+        <entity>concap_store</entity>
+        <select>concap_storeid,concap_name</select>
+        <filters>
+          <filter viewParamName='concap_name' operator='Like' attributeName='concap_name' attributeValue=''>
+            substringof('{concap_name}',concap_name)
+          </filter>
+        </filters>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+    <dataDefinition name='AllEmailTemplates' type='ODATA'>
+      <odataQuery>
+        <entity>template</entity>
+        <select>templateid,title,subject,templatetypecode,body</select>
+        <filters>
+          <filter viewParamName='title' operator='Like' attributeName='title' attributeValue='' attributeType='string'></filter>
+          <filter viewParamName='' operator='StartsWith' attributeName='title' attributeValue='HDC' attributeType='string'></filter>
+          <filter viewParamName='' operator='Equal' attributeName='templatetypecode' attributeValue='contact' attributeType='entityname'></filter>
+          <filter viewParamName='templateid' operator='Equal' attributeName='templateid' attributeValue='' attributeType=''></filter>
+        </filters>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+
+    <dataDefinition name='EntityAttachments' type='ODATA'>
+      <odataQuery>
+        <entity>annotation</entity>
+        <select>filename,filesize</select>
+        <filters>
+          <filter viewParamName='contactid' attributeName='objectid' operator='Equal' attributeValue='' attributeType=''></filter>
+          <filter viewParamName='' operator='Equal' attributeName='isdocument' attributeValue='true' attributeType='boolean'></filter>
+        </filters>
+        <expand></expand>
+        <orders>
+          <order expression="filename" orderBy="ASC"/>
+        </orders>
+      </odataQuery>
+    </dataDefinition>
+    <dataDefinition name='HomePageByName' type='ODATA'>
+      <odataQuery>
+        <entity>concap_hdchomepage</entity>
+        <select>concap_hdchomepageid,concap_name,concap_pagecontent</select>
+        <filters>
+          <filter viewParamName='' attributeName='concap_name' operator='Equal' attributeValue='homepage' attributeType='string'></filter>
+          <filter viewParamName='' attributeName='statecode' operator='Equal' attributeValue='0' attributeType='picklist'></filter>
+        </filters>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+    <dataDefinition name='RepTasks' type='ODATA'>
+      <odataQuery>
+        <entity>task</entity>
+        <select>
+          activityid,subject,scheduledend,regardingobjectid,concap_repcontact,description,statecode
+        </select>
+        <filters>
+          <filter viewParamName='LoggedInUserId' operator='Equal' attributeName='regardingobjectid' attributeValue=''></filter>
+          <filter viewParamName='contactid' operator='Equal' attributeName='concap_repcontact' attributeValue=''></filter>
+          <filter viewParamName='tasksubject' operator='Like' attributeName='subject' attributeValue='' attributeType='string'></filter>
+          <filter viewParamName='taskid' attributeName='activityid' operator='Equal' attributeValue=''></filter>
+        </filters>
+        <orders>
+          <order expression="scheduledend" orderBy="ASC"/>
+        </orders>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+  </dataDefinitions>
+  <viewDefinitions>
+    <viewDefinition viewDefinitionID='LoadAndSearchView' type='Isotope' title=''>
+      <viewParameters>
+        <viewParameter name='fullname' value='' attributeType='string' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Search'>
+          <viewData></viewData>
+          <columns>
+            <column dataDefAttr="fullname" DisplayName="" placeHolder="Contact Name" width="100" type="text"
+                    valueChangeParameter="fullname"
+                    columnClass="input-group"></column>
+          </columns>
+          <events></events>
+          <actions>
+            <action event="search">
+              <response type="loadPageState" pageState="searchlist"></response>
+            </action>
+          </actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/Search.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='ContactSearchView' type='Isotope' viewState='Search' title=''>
+      <viewParameters>
+        <viewParameter name='fullname' value='' attributeType='string' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Search'>
+          <viewData></viewData>
+          <columns css='form-inline'>
+            <column dataDefAttr="concap_relationshiptype" DisplayName="Relationship Type" type="picklist" property="Value"
+                      hideDisplayName="true" placeHolder="Relationship Type" columnClass="form-group"
+              valueChangeParameter="tile_relationshiptype">
+              <AllowedValues>
+                <AllowedValue Value="" Label=""></AllowedValue>
+                <AllowedValue Value="588380000" Label="Transactional (Infrequent)"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Social (Ongoing)"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Strategic (Partner)"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_trade" DisplayName="Trade" type="picklist" property="Value"
+                      hideDisplayName="true" placeHolder="Trade Type" columnClass="form-group" valueChangeParameter="tile_trade">
+              <AllowedValues>
+                <AllowedValue Value="" Label=""></AllowedValue>
+                <AllowedValue Value="588380000" Label="General Contractor"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Remodeler"></AllowedValue>
+                <AllowedValue Value="588380002" Label="DIY"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Electrician"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Plumber"></AllowedValue>
+                <AllowedValue Value="588380005" Label="Mechanical &amp; HVACR"></AllowedValue>
+                <AllowedValue Value="588380006"
+                              Label="Pipe, Steam &amp; Sprinkler Fitter"></AllowedValue>
+                <AllowedValue Value="588380007" Label="Carpenter"></AllowedValue>
+                <AllowedValue Value="588380008"
+                              Label="Auto/Aircraft/Equip. Mechanics/Repair"></AllowedValue>
+                <AllowedValue Value="588380009" Label="Facility Maintenance/Repair"></AllowedValue>
+                <AllowedValue Value="588380010" Label="Farm/Ranch/Agriculture"></AllowedValue>
+                <AllowedValue Value="588380011" Label="Metalworking"></AllowedValue>
+                <AllowedValue Value="588380012" Label="Masonry/Concrete"></AllowedValue>
+                <AllowedValue Value="588380013" Label="Drywall/Ceiling Installer"></AllowedValue>
+                <AllowedValue Value="588380014" Label="Other"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_primarylanguage" DisplayName="Primary Language" type="picklist" property="Value"
+                      hideDisplayName="true" placeHolder="Primary Language" columnClass="form-group" valueChangeParameter="tile_primarylanguage">
+              <AllowedValues>
+                <AllowedValue Value="" Label=""></AllowedValue>
+                <AllowedValue Value="588380000" Label="Spanish"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Polish"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Japanese"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Portuguese"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Ukranian"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="fullname" DisplayName="" placeHolder="Contact Name" width="100" type="inputgroup"
+                    valueChangeParameter="fullname"
+                    columnClass="col-xs-10 row"></column>
+            <column dataDefAttr="createbutton" DisplayName="" width="100" type="button"
+                       valueChangeParameter=""
+                       columnClass=""></column>
+          </columns>
+          <events></events>
+          <actions>
+            <action event="search">
+              <response type="loadPageState" pageState="searchlist"></response>
+            </action>
+          </actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass>row</layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='HomPageView' type='Isotope' viewState='View' title='Home'>
+      <viewParameters>
+
+      </viewParameters>
+      <viewTypes>
+        <viewType name='HomePage'>
+          <viewData>HomePageByName</viewData>
+          <entitySchemaName>concap_hdchomepage</entitySchemaName>
+          <idAttribute>concap_hdchomepageid</idAttribute>
+          <columns>
+            <column dataDefAttr="concap_pagecontent" DisplayName="" width="100" type="html"
+                    hideDisplayName="true" valueClass="txt-primary h3" columnClass="ro-view-light-bg"
+                    displayNameClass="ro-view-display-name"></column>
+
+
+
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes>
+
+      </actionTypes>
+      <templateUrl>/views/MT_HomePage.htm</templateUrl>
+      <layoutclass>row</layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='AllContactsTile' type='grid' viewState='Read' title=''
+                    navOnSelect="view" showPaginationBarAtTop="false">
+      <recordCount>50</recordCount>
+      <viewParameters>
+        <viewParameter name='fullname' value='' attributeType='string' isRoot='false'></viewParameter>
+
+        <viewParameter name='LoggedInUserId' value='' attributeType='Guid' isRoot='false'
+                       type="LoggedInUserId"></viewParameter>
+        <viewParameter name='statecode' value='true' attributeType='int' isRoot='false'
+                         type="int"></viewParameter>
+        <viewParameter name='tile_relationshiptype' value='' attributeType='picklist' isRoot='false'></viewParameter>
+        <viewParameter name='tile_trade' value='' attributeType='picklist' isRoot='false'></viewParameter>
+        <viewParameter name='tile_primarylanguage' value='' attributeType='picklist' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Contact'>
+          <viewData>AllContacts</viewData>
+          <entitySchemaName>contact</entitySchemaName>
+          <idAttribute>contactid</idAttribute>
+          <class>tile</class>
+          <columns>
+            <column dataDefAttr="fullname" DisplayName="Full Name" hideDisplayName="true" width="100"
+                    type="text" class="fullname-listview"></column>
+            <column dataDefAttr="concap_trade" DisplayName="Trade/Occupation" hideDisplayName="true"
+                    width="100" type="picklist" class="trade-listview">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="General Contractor"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Remodeler"></AllowedValue>
+                <AllowedValue Value="588380002" Label="DIY"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Electrician"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Plumber"></AllowedValue>
+                <AllowedValue Value="588380005" Label="Mechanical &amp; HVACR"></AllowedValue>
+                <AllowedValue Value="588380006"
+                              Label="Pipe, Steam &amp; Sprinkler Fitter"></AllowedValue>
+                <AllowedValue Value="588380007" Label="Carpenter"></AllowedValue>
+                <AllowedValue Value="588380008"
+                              Label="Auto/Aircraft/Equip. Mechanics/Repair"></AllowedValue>
+                <AllowedValue Value="588380009" Label="Facility Maintenance/Repair"></AllowedValue>
+                <AllowedValue Value="588380010" Label="Farm/Ranch/Agriculture"></AllowedValue>
+                <AllowedValue Value="588380011" Label="Metalworking"></AllowedValue>
+                <AllowedValue Value="588380012" Label="Masonry/Concrete"></AllowedValue>
+                <AllowedValue Value="588380013" Label="Drywall/Ceiling Installer"></AllowedValue>
+                <AllowedValue Value="588380014" Label="Other"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_relationshiptype" DisplayName="Relationship Type" hideDisplayName="true"
+                      width="100" type="picklist" class="trade-listview">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Transactional (Infrequent)"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Social (Ongoing)"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Strategic (Partner)"></AllowedValue>
+              </AllowedValues>
+            </column>
+          </columns>
+          <events>
+            <event type="record_selected" name="view_contact">
+              <recordSelectParameter name="contactid" attribute="contactid" cache="true"></recordSelectParameter>
+            </event>
+            <event type="before_view_load" name="reset app parameters"></event>
+          </events>
+          <actions>
+            <action event="view_contact">
+              <response type="loadPageState" pageState="view"></response>
+            </action>
+            <action event="reset app parameters">
+              <response type="resetAppParameters">
+                <appParameters>
+                  <parameter name="tile_relationshiptype"></parameter>
+                  <parameter name="tile_trade"></parameter>
+                  <parameter name="tile_primarylanguage"></parameter>
+                </appParameters>
+              </response>
+            </action>
+          </actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='CreateContact' type='Isotope' viewState='Create' title='Create Contact'
+                    outputParameter='contactid'>
+      <viewParameters>
+      </viewParameters>
+      <afterCreate>
+        <navigateTo pageState='edit'>
+        </navigateTo>
+      </afterCreate>
+      <viewTypes>
+        <viewType>
+          <entitySchemaName>contact</entitySchemaName>
+          <viewData></viewData>
+          <columns>
+            <column dataDefAttr="firstname" DisplayName="First Name" width="100" type="text"
+                    hideDisplayName="false" required="true" maxLength="50"></column>
+            <column dataDefAttr="lastname" DisplayName="Last Name" width="100" type="text"
+                    hideDisplayName="false" required="true" maxLength="50"></column>
+
+            <column dataDefAttr="emailaddress1" DisplayName="Email" width="100" type="email"
+                    hideDisplayName="false" required="true" maxLength="80" valueChangeParameter="newcontactemail"></column>
+            
+            <column dataDefAttr="concap_trade" DisplayName="Trade/Occupation" width="100" type="picklist"
+                    hideDisplayName="false" required="true">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="General Contractor"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Remodeler"></AllowedValue>
+                <AllowedValue Value="588380002" Label="DIY"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Electrician"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Plumber"></AllowedValue>
+                <AllowedValue Value="588380005" Label="Mechanical &amp; HVACR"></AllowedValue>
+                <AllowedValue Value="588380006"
+                              Label="Pipe, Steam &amp; Sprinkler Fitter"></AllowedValue>
+                <AllowedValue Value="588380007" Label="Carpenter"></AllowedValue>
+                <AllowedValue Value="588380008"
+                              Label="Auto/Aircraft/Equip. Mechanics/Repair"></AllowedValue>
+                <AllowedValue Value="588380009" Label="Facility Maintenance/Repair"></AllowedValue>
+                <AllowedValue Value="588380010" Label="Farm/Ranch/Agriculture"></AllowedValue>
+                <AllowedValue Value="588380011" Label="Metalworking"></AllowedValue>
+                <AllowedValue Value="588380012" Label="Masonry/Concrete"></AllowedValue>
+                <AllowedValue Value="588380013" Label="Drywall/Ceiling Installer"></AllowedValue>
+                <AllowedValue Value="588380014" Label="Other"></AllowedValue>
+              </AllowedValues>
+            </column>
+
+            <column dataDefAttr="concap_relationshiptype" DisplayName="Relationship Type" width="100"
+                    type="picklist" hideDisplayName="false" required="true">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Transactional (Infrequent)"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Social (Ongoing)"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Strategic (Partner)"></AllowedValue>
+              </AllowedValues>
+            </column>
+
+            <column dataDefAttr="concap_loggedinuser" DisplayName="Logged In User" width="100"
+                    type="lookup-hidden" entityLogicalName="contact" idParameter="LoggedInUserId" nameParameter="LoggedInUserName"
+                    primaryId="LoggedInUserId" primaryName="LoggedInUserName" hideDisplayName="false"
+                    source="getScope()"></column>
+          </columns>
+          <events>
+            <event name="duplicatecontact" type="create_failed"></event>
+            <event name="sendemailtosupport" type="popup_ok_event"></event>
+            <event name="redirect_to_homepage" type="popup_cancel_event"></event>
+          </events>
+          <actions>            
+            <action event="duplicatecontact">
+              <response name="Compare Error Message" type="stringCompare">
+                <parameters>
+                  <parameter name="value1" value="" location="contactid"></parameter>
+                  <parameter name="value2" value="Duplicate Error" location=""></parameter>
+                </parameters>
+                <trueResponse>
+                  <response name="show error popup" type="openPopup">
+                    <parameters>
+                      <parameter name="template" value="/views/DuplicateContact.htm" location=""></parameter>
+                      <parameter name="sourceViewId" value="CreateContact" location=""></parameter>
+                      <parameter name="popupOkEvent" value="sendemailtosupport" location=""></parameter>
+                      <parameter name="popupCancelEvent" value="redirect_to_homepage" location=""></parameter>
+                    </parameters>
+                  </response>
+                </trueResponse>
+                <falseResponse>                  
+                </falseResponse>
+              </response>
+            </action>
+            <action event="sendemailtosupport">
+              <response name="send ContactReassignmentEmail to support" type="sendContactReassignmentEmail">
+                <parameters>
+                  <parameter name="newemail" value="" location="newcontactemail"></parameter>
+                  <parameter name="repid" value="" location="LoggedInUserId"></parameter>
+                </parameters>
+              </response>
+              <response type="loadPage">
+                <parameters>
+                  <parameter name="pageId" value="homePage" location=""></parameter>
+                </parameters>
+              </response>
+            </action>
+            <action event="redirect_to_homepage">
+              <response type="loadPage">
+                <parameters>
+                  <parameter name="pageId" value="homePage" location=""></parameter>
+                </parameters>
+              </response>
+            </action>
+          </actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='EditContact' type='Isotope' viewState='Edit' title='Edit Contact'
+                    navOnBack="view" navOnSave="searchlist">
+      <viewParameters>
+        <viewParameter name='contactid' value='' attributeType='Guid' isRoot='true'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Contact'>
+          <viewData>AllContacts</viewData>
+          <entitySchemaName>contact</entitySchemaName>
+          <idAttribute>contactid</idAttribute>
+          <columns>
+            <column dataDefAttr="firstname" DisplayName="First Name" width="100" type="text"
+                    hideDisplayName="false" required="true" maxLength="50"></column>
+            <column dataDefAttr="lastname" DisplayName="Last Name" width="100" type="text"
+                    hideDisplayName="false" required="true" maxLength="50"></column>
+
+            <column dataDefAttr="emailaddress1" DisplayName="Email" width="100" type="email"
+                    hideDisplayName="false" required="true" maxLength="80"></column>
+
+            <column dataDefAttr="concap_brandspurchased" DisplayName="Brands Purchased" width="100" type="picklist"
+                      hideDisplayName="false" required="true">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Milwaukee Only"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Empire Only"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Milwaukee &amp; Empire"></AllowedValue>
+              </AllowedValues>
+            </column>
+
+            <column dataDefAttr="concap_emailoptin" DisplayName="Email Opt-In"
+                    width="100" type="boolean" hideDisplayName="false" required="true" format="dropdown">
+              <AllowedValues>
+                <AllowedValue Value="true" Label="Yes, send Milwaukee marketing"></AllowedValue>
+                <AllowedValue Value="false" Label="No, don't send Milwaukee marketing"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_preferredcontactmethod" DisplayName="Preferred Contact Method" width="100" type="picklist"
+                      hideDisplayName="false" required="true">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Email Only"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Text Only"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Email and Text"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_trade" DisplayName="Trade/Occupation" width="100" type="picklist"
+                    hideDisplayName="false" required="true">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="General Contractor"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Remodeler"></AllowedValue>
+                <AllowedValue Value="588380002" Label="DIY"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Electrician"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Plumber"></AllowedValue>
+                <AllowedValue Value="588380005" Label="Mechanical &amp; HVACR"></AllowedValue>
+                <AllowedValue Value="588380006"
+                              Label="Pipe, Steam &amp; Sprinkler Fitter"></AllowedValue>
+                <AllowedValue Value="588380007" Label="Carpenter"></AllowedValue>
+                <AllowedValue Value="588380008"
+                              Label="Auto/Aircraft/Equip. Mechanics/Repair"></AllowedValue>
+                <AllowedValue Value="588380009" Label="Facility Maintenance/Repair"></AllowedValue>
+                <AllowedValue Value="588380010" Label="Farm/Ranch/Agriculture"></AllowedValue>
+                <AllowedValue Value="588380011" Label="Metalworking"></AllowedValue>
+                <AllowedValue Value="588380012" Label="Masonry/Concrete"></AllowedValue>
+                <AllowedValue Value="588380013" Label="Drywall/Ceiling Installer"></AllowedValue>
+                <AllowedValue Value="588380014" Label="Other"></AllowedValue>
+              </AllowedValues>
+            </column>
+
+            <column dataDefAttr="concap_relationshiptype" DisplayName="Relationship Type" width="100"
+                    type="picklist" hideDisplayName="false" required="true">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Transactional (Infrequent)"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Social (Ongoing)"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Strategic (Partner)"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_primarylanguage" DisplayName="Primary Language" width="100"
+                      type="picklist" hideDisplayName="false" >
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Spanish"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Polish"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Japanese"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Portuguese"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Ukranian"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_contactuseseservice" DisplayName="Contact Uses eService"
+                      width="100" type="boolean" hideDisplayName="false" format="checkbox">
+            </column>
+            <column dataDefAttr="telephone1" DisplayName="Primary Phone (Ex. 2123456789)" width="100" type="telephone"
+                    hideDisplayName="false" maxLength="40"></column>
+            <column dataDefAttr="description" DisplayName="Contact Notes" width="100"
+                    type="multilinetext" hideDisplayName="false" maxLength="32000"
+                    valueClass="auto-expand"
+                    minRows="5"></column>
+
+            <column dataDefAttr="" DisplayName="PRODUCT LINES PURCHASED" type="label" hideDisplayName="false" ></column>
+            <column dataDefAttr="concap_fuelcordless" DisplayName="FUEL Cordless"
+                    width="100" type="boolean" hideDisplayName="false" format="checkbox">
+            </column>
+            <column dataDefAttr="concap_cordless" DisplayName="Cordless"
+                    width="100" type="boolean" hideDisplayName="false" format="checkbox">
+            </column>
+            <column dataDefAttr="concap_onekeytick" DisplayName="TICK"
+                    width="100" type="boolean" hideDisplayName="false" format="checkbox">
+            </column>
+            <column dataDefAttr="concap_accessories" DisplayName="Accessories"
+                    width="100" type="boolean" hideDisplayName="false" format="checkbox">
+            </column>
+            <column dataDefAttr="concap_handtools" DisplayName="Hand Tools"
+                    width="100" type="boolean" hideDisplayName="false" format="checkbox">
+            </column>
+            <column dataDefAttr="concap_empire" DisplayName="Empire"
+                    width="100" type="boolean" hideDisplayName="false" format="checkbox">
+            </column>
+            <column dataDefAttr="concap_corded" DisplayName="Corded"
+                    width="100" type="boolean" hideDisplayName="false" format="checkbox">
+            </column>
+
+            <column dataDefAttr="concap_convertedfromother" DisplayName="Product Purchase Details"
+                    width="100" type="multilinetext" hideDisplayName="false" maxLength="900"
+                    valueClass="auto-expand" minRows="5"></column>
+            <column dataDefAttr="concap_cordlessplatforms" DisplayName="Cordless Platforms" width="100"
+                    type="picklist" hideDisplayName="false">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="M12 Only"></AllowedValue>
+                <AllowedValue Value="588380001" Label="M18 Only"></AllowedValue>
+                <AllowedValue Value="588380002" Label="M12 &amp; M18"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_positionincompany" DisplayName="Postion In Company" width="100" type="picklist"
+                      hideDisplayName="false">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="President/Owner"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Purchaser"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Tool Crib Manager"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Foreman/Superintendent"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Pro Contractor"></AllowedValue>
+                <AllowedValue Value="588380005" Label="Journeyman"></AllowedValue>
+                <AllowedValue Value="588380006" Label="Apprentice"></AllowedValue>
+                <AllowedValue Value="588380007" Label="Runner"></AllowedValue>
+                <AllowedValue Value="588380008" Label="Serivice/Repair Coord"></AllowedValue>
+                <AllowedValue Value="588380009" Label="Other"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="address1_name" DisplayName="Company Name" width="100" type="text"
+                    hideDisplayName="false" maxLength="200"></column>
+            <column dataDefAttr="concap_companysize" DisplayName="Company Size" width="100" type="picklist"
+                    hideDisplayName="false">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Very Small &lt; 10 employees"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Small 10-49 employees"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Medium 50-100 employees"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Large &gt; 100 employees"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Whale &gt; 500 employees"></AllowedValue>
+              </AllowedValues>
+            </column>
+
+            <column dataDefAttr="address1_line1" DisplayName="Street 1" width="100" type="text"
+                    hideDisplayName="false" maxLength="250"></column>
+            <column dataDefAttr="address1_line2" DisplayName="Street 2" width="100" type="text"
+                    hideDisplayName="false" maxLength="250"></column>
+            <column dataDefAttr="address1_city" DisplayName="City" width="100" type="text"
+                    hideDisplayName="false" maxLength="40"></column>
+            <column dataDefAttr="address1_stateorprovince" DisplayName="State" width="100" type="text"
+                    hideDisplayName="false" maxLength="20"></column>
+            <column dataDefAttr="address1_postalcode" DisplayName="Zip" width="100" type="text"
+                    hideDisplayName="false" maxLength="20"></column>
+            <column dataDefAttr="concap_removecontact" DisplayName="Remove Contact?"
+                    width="100" type="boolean" hideDisplayName="false" format="checkbox">
+            </column>
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='ViewContact' type='Isotope' viewState='View' title='View Contact'>
+      <viewParameters>
+        <viewParameter name='contactid' value='' attributeType='Guid' isRoot='true'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Contact'>
+          <viewData>AllContacts</viewData>
+          <entitySchemaName>contact</entitySchemaName>
+          <idAttribute>contactid</idAttribute>
+          <columns>
+            <column dataDefAttr="fullname" DisplayName="Full Name" width="100" type="text"
+                    hideDisplayName="true" valueClass="txt-primary h3" columnClass="ro-view-light-bg"
+                    displayNameClass="ro-view-display-name"></column>
+            <column dataDefAttr="concap_trade" DisplayName="Trade/Occupation" width="100" type="picklist"
+                    hideDisplayName="false"
+                    displayNameClass="ro-view-display-name " columnClass="ro-view divider">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="General Contractor"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Remodeler"></AllowedValue>
+                <AllowedValue Value="588380002" Label="DIY"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Electrician"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Plumber"></AllowedValue>
+                <AllowedValue Value="588380005" Label="Mechanical &amp; HVACR"></AllowedValue>
+                <AllowedValue Value="588380006"
+                              Label="Pipe, Steam &amp; Sprinkler Fitter"></AllowedValue>
+                <AllowedValue Value="588380007" Label="Carpenter"></AllowedValue>
+                <AllowedValue Value="588380008"
+                              Label="Auto/Aircraft/Equip. Mechanics/Repair"></AllowedValue>
+                <AllowedValue Value="588380009" Label="Facility Maintenance/Repair"></AllowedValue>
+                <AllowedValue Value="588380010" Label="Farm/Ranch/Agriculture"></AllowedValue>
+                <AllowedValue Value="588380011" Label="Metalworking"></AllowedValue>
+                <AllowedValue Value="588380012" Label="Masonry/Concrete"></AllowedValue>
+                <AllowedValue Value="588380013" Label="Drywall/Ceiling Installer"></AllowedValue>
+                <AllowedValue Value="588380014" Label="Other"></AllowedValue>
+              </AllowedValues>
+            </column>
+
+            <column dataDefAttr="concap_relationshiptype" DisplayName="Relationship Type" width="100"
+                    type="picklist" hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Transactional (Infrequent)"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Social (Ongoing)"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Strategic (Partner)"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_primarylanguage" DisplayName="Primary Language" width="100"
+                    type="picklist" hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Spanish"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Polish"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Japanese"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Portuguese"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Ukranian"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_contactuseseservice" DisplayName="Contact Uses eService"
+                    width="100" hideDisplayName="false" type="boolean"  displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider">
+              <AllowedValues>
+                <AllowedValue Value="true" Label="Yes"></AllowedValue>
+                <AllowedValue Value="false" Label="No"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="telephone1" DisplayName="Primary Phone" width="100" type="telephone"
+                    hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider"></column>
+
+            <column dataDefAttr="emailaddress1" DisplayName="Email" width="100" type="email"
+                      hideDisplayName="false" displayNameClass="ro-view-display-name"
+                      columnClass="ro-view divider"></column>
+
+            <column dataDefAttr="concap_brandspurchased" DisplayName="Brands Purchased" width="100" type="picklist"
+                      hideDisplayName="false" required="true" columnClass="ro-view divider" displayNameClass="ro-view-display-name">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Milwaukee Only"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Empire Only"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Milwaukee &amp; Empire"></AllowedValue>
+              </AllowedValues>
+            </column>
+
+            <column dataDefAttr="concap_emailoptin"
+                    DisplayName="Email Opt-In"
+                    width="100" hideDisplayName="false" type="boolean"  displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider">
+              <AllowedValues>
+                <AllowedValue Value="true" Label="Yes, send Milwaukee marketing"></AllowedValue>
+                <AllowedValue Value="false" Label="No, don't send Milwaukee marketing"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_preferredcontactmethod" DisplayName="Preferred Contact Method" width="100" type="picklist"
+                      hideDisplayName="false" required="true" columnClass="ro-view divider" displayNameClass="ro-view-display-name">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Email Only"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Text Only"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Email and Text"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_totalsalesrevenue" DisplayName="Total Purchase Amount" width="100" type="money"
+                      hideDisplayName="false" displayNameClass="ro-view-display-name"
+                      columnClass="ro-view divider" showIfNull="true"></column>
+            <column dataDefAttr="" DisplayName="PRODUCT LINES PURCHASED" width="100"
+                                            type="text" hideDisplayName="false"
+                                            displayNameClass="ro-view txt-primary"
+                                            columnClass="ro-view divider-lg additional-information"
+                                            showIfNull="true"></column>
+
+            <column dataDefAttr="concap_fuelcordless" DisplayName="FUEL Cordless"
+                   width="100" hideDisplayName="true" type="boolean"
+                   displayNameClass="ro-view-display-name" columnClass="ro-view " >
+              <AllowedValues>
+                <AllowedValue Value="true" Label="FUEL Cordless"></AllowedValue>
+                <AllowedValue Value="false" Label=""></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_cordless" DisplayName="Cordless"
+                   width="100" hideDisplayName="true" type="boolean"
+                   displayNameClass="ro-view-display-name" columnClass="ro-view " >
+              <AllowedValues>
+                <AllowedValue Value="true" Label="Cordless"></AllowedValue>
+                <AllowedValue Value="false" Label=""></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_onekeytick" DisplayName="TICK"
+                   width="100" hideDisplayName="true" type="boolean"
+                   displayNameClass="ro-view-display-name" columnClass="ro-view " >
+              <AllowedValues>
+                <AllowedValue Value="true" Label="TICK"></AllowedValue>
+                <AllowedValue Value="false" Label=""></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_accessories" DisplayName="Accessories"
+                   width="100" hideDisplayName="true" type="boolean"
+                   displayNameClass="ro-view-display-name" columnClass="ro-view " >
+              <AllowedValues>
+                <AllowedValue Value="true" Label="Accessories"></AllowedValue>
+                <AllowedValue Value="false" Label=""></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_handtools" DisplayName="Hand Tools"
+                   width="100" hideDisplayName="true" type="boolean"
+                   displayNameClass="ro-view-display-name" columnClass="ro-view " >
+              <AllowedValues>
+                <AllowedValue Value="true" Label="Hand Tools"></AllowedValue>
+                <AllowedValue Value="false" Label=""></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_empire" DisplayName="Empire"
+                   width="100" hideDisplayName="true" type="boolean"
+                   displayNameClass="ro-view-display-name" columnClass="ro-view " >
+              <AllowedValues>
+                <AllowedValue Value="true" Label="Empire"></AllowedValue>
+                <AllowedValue Value="false" Label=""></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_corded" DisplayName="Corded"
+                    width="100" hideDisplayName="true" type="boolean"
+                    displayNameClass="ro-view-display-name" columnClass="ro-view "
+              showIfFalse="false">
+              <AllowedValues>
+                <AllowedValue Value="true" Label="Corded"></AllowedValue>
+                <AllowedValue Value="false" Label=""></AllowedValue>
+              </AllowedValues>
+            </column>
+
+            <column dataDefAttr="" DisplayName="ADDITIONAL INFORMATION" width="100"
+                    type="text" hideDisplayName="false"
+                    displayNameClass="ro-view txt-primary"
+                    columnClass="ro-view divider-lg additional-information"
+                    showIfNull="true"></column>
+            <column dataDefAttr="description" DisplayName="Contact Notes" width="100"
+                    type="text" hideDisplayName="false"
+                    displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider" valueClass="pre-formatted"
+                    showIfNull="false"></column>
+
+            <column dataDefAttr="concap_convertedfrom" DisplayName="Product Lines Purchased" width="100"
+                    type="picklist" hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Cordless Only"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Hand Tools Only"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Accessories Only"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Cordless &amp; Accessories"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Cordless &amp; Hand Tools"></AllowedValue>
+                <AllowedValue Value="588380005"
+                              Label="Cordless, Accessories &amp; Hand Tools"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_convertedfromother" DisplayName="Product Purchase Details"
+                    width="100"
+                    type="text" hideDisplayName="false"
+                    displayNameClass="ro-view-display-name" columnClass="ro-view divider"
+                    valueClass="pre-formatted"></column>
+
+            <column dataDefAttr="concap_cordlessplatforms" DisplayName="Cordless Platforms" width="100"
+                    type="picklist" hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="M12 Only"></AllowedValue>
+                <AllowedValue Value="588380001" Label="M18 Only"></AllowedValue>
+                <AllowedValue Value="588380002" Label="M12 &amp; M18"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_positionincompany" DisplayName="Postion In Company" width="100" type="picklist"
+                    hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="President/Owner"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Purchaser"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Tool Crib Manager"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Foreman/Superintendent"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Pro Contractor"></AllowedValue>
+                <AllowedValue Value="588380005" Label="Journeyman"></AllowedValue>
+                <AllowedValue Value="588380006" Label="Apprentice"></AllowedValue>
+                <AllowedValue Value="588380007" Label="Runner"></AllowedValue>
+                <AllowedValue Value="588380008" Label="Serivice/Repair Coord"></AllowedValue>
+                <AllowedValue Value="588380009" Label="Other"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="address1_name" DisplayName="Company Name" width="100" type="text"
+                    hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider"></column>
+            <column dataDefAttr="concap_companysize" DisplayName="Company Size" width="100" type="picklist"
+                    hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Very Small &lt; 10 employees"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Small 10-49 employees"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Medium 50-100 employees"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Large &gt; 100 employees"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Whale &gt; 500 employees"></AllowedValue>
+              </AllowedValues>
+            </column>
+
+            <column dataDefAttr="address1_line1" DisplayName="Street 1" width="100" type="text"
+                    hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider"></column>
+            <column dataDefAttr="address1_line2" DisplayName="Street 2" width="100" type="text"
+                    hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider"></column>
+            <column dataDefAttr="address1_city" DisplayName="City" width="100" type="text"
+                    hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider"></column>
+            <column dataDefAttr="address1_stateorprovince" DisplayName="State" width="100" type="text"
+                    hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider"></column>
+            <column dataDefAttr="address1_postalcode" DisplayName="Zip" width="100" type="text"
+                      hideDisplayName="false" displayNameClass="ro-view-display-name"
+                      columnClass="ro-view divider"></column>
+
+          </columns>
+          <navButtons>
+            <navButton title="" controlClass="btn-default btn" buttonClickEvent="navBack" description="Cancel" iconClass="glyphicon glyphicon-ban-circle" ></navButton>
+            <navButton title="" controlClass="btn-primary btn" buttonClickEvent="navEdit" iconClass="glyphicon glyphicon-edit" description="Edit"></navButton>
+            <navButton title="" controlClass="btn-primary btn" buttonClickEvent="navPurchase" iconClass="glyphicon glyphicon-shopping-cart" description="Purchase"></navButton>
+            <navButton title="" controlClass="btn-primary btn form-group" buttonClickEvent="navAttach" iconClass="glyphicon glyphicon-paperclip" description="Attach File"></navButton>
+            <navButton title="" controlClass="btn-primary btn" buttonClickEvent="navTask" iconClass="glyphicon glyphicon-check" description="Add Task"></navButton>
+          </navButtons>
+          <events>
+            <event name="navBack"></event>
+            <event name="navEdit"></event>
+            <event name="navPurchase"></event>
+            <event name="navAttach"></event>
+            <event name="navTask"></event>
+          </events>
+          <actions>
+            <action event="navBack">
+              <response type="loadPageState" pageState="searchlist"></response>
+            </action>
+            <action event="navEdit">
+              <response type="loadPageState" pageState="edit"></response>
+            </action>
+            <action event="navPurchase">
+              <response type="loadPageState" pageState="purchase"></response>
+            </action>
+            <action event="navAttach">
+              <response type="loadPageState" pageState="attach"></response>
+            </action>
+            <action event="navTask">
+              <response type="loadPageState" pageState="createTask"></response>
+            </action>
+          </actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes>
+        <action type="edit" title="Edit"></action>
+      </actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='ContactProfileSettings' type='Isotope' viewState='Edit'
+                    title='Profile Settings'
+                    navToPage='contacts' navOnBack='searchlist' navOnSave='searchlist'>
+      <viewParameters>
+        <viewParameter name='LoggedInUserId' value='' attributeName='contactid' attributeType='Guid' isRoot='false'
+                       type='LoggedInUserId'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Contact'>
+          <viewData>Me</viewData>
+          <entitySchemaName>contact</entitySchemaName>
+          <idAttribute>contactid</idAttribute>
+          <columns>
+            <column dataDefAttr="concap_primarystorenumber" DisplayName="Primary Store" width="100"
+                    type="lookup" lookupTemplate="/views/Lookup.htm"
+                    viewDefinitionId="AllStoresGrid" entityLogicalName="concap_store"
+                    primaryId="concap_storeid" primaryName="concap_name" required="true"
+                    readOnly="true"></column>
+            <column dataDefAttr="concap_password" DisplayName="Password" width="100"
+                    type="password" required="true" maxLength="100"></column>
+            <!-- column dataDefAttr="concap_emailtext" DisplayName="Email Text" width="100" type="multilinetext"></-->
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='AllStoresGrid' type='Grid' viewState='Read' title='Select a Store'
+                    showPaginationBarAtTop="false" showRadioButton="true">
+      <recordCount>10</recordCount>
+      <viewParameters>
+        <viewParameter name='concap_name' value='' attributeType='string' isRoot='false' class="col-xs-8"
+                       type="input"></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Stores'>
+          <viewData>AllStores</viewData>
+          <entitySchemaName>concap_store</entitySchemaName>
+          <idAttribute>concap_storeid</idAttribute>
+          <columns>
+            <column dataDefAttr="concap_name" DisplayName="Store Name" width="100" type="text"></column>
+            <column dataDefAttr="concap_number" DisplayName="Store Number" width="100" type="text"></column>
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/UIGrid.html</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='EmailPage' type='Email'
+                    navToPage='contacts' navOnBack='searchlist' navOnSave='searchlist'>
+      <viewParameters>
+        <viewParameter name='emailTo' value='' attributeType='Guid' isRoot='false'
+                       type='lookup'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Email'>
+          <columns>
+            <column dataDefAttr="emailTo" DisplayName="To" width="100" type="multi-lookup"
+                    viewDefinitionId="AllContactsGrid" entityLogicalName="contact" primaryId="contactid"
+                    primaryName="fullname"></column>
+            <column dataDefAttr="emailToAll" DisplayName="Include all Contacts" width="100"
+                    type="checkbox"></column>
+            <column dataDefAttr="copyToManager" DisplayName="CC Manager" width="100"
+                    type="checkbox"></column>
+            <column dataDefAttr="emailTemplate" DisplayName="Template" width="100" type="lookup"
+                    lookupTemplate="/views/Lookup.htm"
+                    viewDefinitionId="AllEmailTemplatesGrid" entityLogicalName="template"
+                    primaryId="templateid" primaryName="title"></column>
+            <column dataDefAttr="replyTo" DisplayName="Reply To" width="100" type="text"
+                    minRows="2"
+                    valueClass="auto-expand"
+                    maxLength="200"></column>
+            <column dataDefAttr="emailText" DisplayName="Template Input" width="100" type="multilinetext"
+                    minRows="2"
+                    valueClass="auto-expand"
+                    maxLength="2000"></column>
+            <column dataDefAttr="emailSubject" DisplayName="Subject" width="100" type="multilinetext"
+                    minRows="2"
+                    valueClass="auto-expand"
+                    maxLength="200"></column>
+            <column dataDefAttr="emailBody" DisplayName="Message" width="100" type="multilinetext"
+                    minRows="5"
+                    valueClass="auto-expand"
+                    maxLength="1073741823"></column>
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes>
+      </actionTypes>
+      <templateUrl>/views/Email.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>EmailController</controller>
+    </viewDefinition>
+
+    <viewDefinition viewDefinitionID='SendGridEmailPage' type='Email'
+                    navToPage='contacts' navOnBack='searchlist' navOnSave='searchlist'>
+      <viewParameters>
+        <viewParameter name='emailTo' value='' attributeType='Guid' isRoot='false'
+                       type='lookup'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Email'>
+          <columns>
+            <column dataDefAttr="emailTo" DisplayName="To" width="100" type="multi-lookup"
+                    viewDefinitionId="AllContactsGrid" entityLogicalName="contact" primaryId="contactid"
+                    primaryName="fullname"></column>
+            <column dataDefAttr="emailToAll" DisplayName="Include all Contacts" width="100"
+                    type="checkbox"></column>
+            <column dataDefAttr="emailTemplate" DisplayName="Template" width="100" type="lookup"
+                    lookupTemplate="/views/Lookup.htm"
+                    viewDefinitionId="AllEmailTemplatesGrid" entityLogicalName="template"
+                    primaryId="templateid" primaryName="title"></column>
+            <column dataDefAttr="emailText" DisplayName="Template Input" width="100" type="multilinetext"
+                    minRows="2"
+                    valueClass="auto-expand"
+                    maxLength="2000"></column>
+            <column dataDefAttr="replyTo" DisplayName="Reply To" width="100" type="multilinetext"
+                    minRows="2"
+                    valueClass="auto-expand"
+                    maxLength="200"></column>
+            <column dataDefAttr="emailSubject" DisplayName="Subject" width="100" type="multilinetext"
+                    minRows="2"
+                    valueClass="auto-expand"
+                    maxLength="200"></column>
+            <column dataDefAttr="emailBody" DisplayName="Message" width="100" type="multilinetext"
+                    minRows="5"
+                    valueClass="auto-expand"
+                    maxLength="1073741823"></column>
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes>
+      </actionTypes>
+      <templateUrl>/views/Email.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>EmailController</controller>
+    </viewDefinition>
+    
+    <viewDefinition viewDefinitionID='AllContactsGrid' type='Grid' viewState='Read' title='Select Contacts' showPaginationBarAtTop="false" showRadioButton="true">
+      <recordCount>50</recordCount>
+      <viewParameters>
+        <viewParameter name='concap_relationshiptype' value='' attributeType='picklist' isRoot='false' class="col-xs-12"
+                         type="picklist" DisplayName="Relationship Type" valueProperty="Value">
+          <AllowedValues>
+            <AllowedValue Value="" Label=""></AllowedValue>
+            <AllowedValue Value="588380000" Label="Transactional (Infrequent)"></AllowedValue>
+            <AllowedValue Value="588380001" Label="Social (Ongoing)"></AllowedValue>
+            <AllowedValue Value="588380002" Label="Strategic (Partner)"></AllowedValue>
+          </AllowedValues>
+        </viewParameter>
+        <viewParameter name='concap_trade' value='' attributeType='picklist' isRoot='false' class="col-xs-12"
+                         type="picklist" DisplayName="Trade" valueProperty="Value">
+          <AllowedValues>
+            <AllowedValue Value="" Label=""></AllowedValue>
+            <AllowedValue Value="588380000" Label="General Contractor"></AllowedValue>
+            <AllowedValue Value="588380001" Label="Remodeler"></AllowedValue>
+            <AllowedValue Value="588380002" Label="DIY"></AllowedValue>
+            <AllowedValue Value="588380003" Label="Electrician"></AllowedValue>
+            <AllowedValue Value="588380004" Label="Plumber"></AllowedValue>
+            <AllowedValue Value="588380005" Label="Mechanical &amp; HVACR"></AllowedValue>
+            <AllowedValue Value="588380006"
+                          Label="Pipe, Steam &amp; Sprinkler Fitter"></AllowedValue>
+            <AllowedValue Value="588380007" Label="Carpenter"></AllowedValue>
+            <AllowedValue Value="588380008"
+                          Label="Auto/Aircraft/Equip. Mechanics/Repair"></AllowedValue>
+            <AllowedValue Value="588380009" Label="Facility Maintenance/Repair"></AllowedValue>
+            <AllowedValue Value="588380010" Label="Farm/Ranch/Agriculture"></AllowedValue>
+            <AllowedValue Value="588380011" Label="Metalworking"></AllowedValue>
+            <AllowedValue Value="588380012" Label="Masonry/Concrete"></AllowedValue>
+            <AllowedValue Value="588380013" Label="Drywall/Ceiling Installer"></AllowedValue>
+            <AllowedValue Value="588380014" Label="Other"></AllowedValue>
+          </AllowedValues>
+        </viewParameter>
+        <viewParameter name='concap_primarylanguage' value='' attributeType='picklist' isRoot='false' class="col-xs-12"
+                                 type="picklist" DisplayName="Primary Language" valueProperty="Value">
+          <AllowedValues>
+            <AllowedValue Value="" Label=""></AllowedValue>
+            <AllowedValue Value="588380000" Label="Spanish"></AllowedValue>
+            <AllowedValue Value="588380001" Label="Polish"></AllowedValue>
+            <AllowedValue Value="588380002" Label="Japanese"></AllowedValue>
+            <AllowedValue Value="588380003" Label="Portuguese"></AllowedValue>
+            <AllowedValue Value="588380004" Label="Ukranian"></AllowedValue>
+          </AllowedValues>
+        </viewParameter>
+        <viewParameter name='contact_fullname' value='' attributeType='string' isRoot='false' class="col-xs-10"
+                                       type="input" DisplayName="Name" ></viewParameter>
+        <viewParameter name='LoggedInUserId' value='' attributeType='Guid' isRoot='true'
+                                       type="LoggedInUserId"></viewParameter>
+        <viewParameter name='emailOptIn' value='true' attributeType='boolean' isRoot='false'
+                       type="boolean"></viewParameter>
+        <viewParameter name='statecode' value='true' attributeType='boolean' isRoot='false'
+                         type="boolean"></viewParameter>
+      </viewParameters>
+
+      <viewTypes>
+        <viewType name='Contacts'>
+          <class>tile</class>
+          <viewData>ContactsGrid</viewData>
+          <entitySchemaName>contact</entitySchemaName>
+          <idAttribute>contactid</idAttribute>
+          <columns>
+            <column dataDefAttr="fullname" DisplayName="Name" width="100" columnClass="fullname-listview" hideDisplayName="true"
+                    type="text"></column>
+            <column dataDefAttr="concap_trade" DisplayName="Trade/Occupation" width="100" hideDisplayName="true"
+                    columnClass="trade-listview" type="picklist">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="General Contractor"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Remodeler"></AllowedValue>
+                <AllowedValue Value="588380002" Label="DIY"></AllowedValue>
+                <AllowedValue Value="588380003" Label="Electrician"></AllowedValue>
+                <AllowedValue Value="588380004" Label="Plumber"></AllowedValue>
+                <AllowedValue Value="588380005" Label="Mechanical &amp; HVACR"></AllowedValue>
+                <AllowedValue Value="588380006"
+                              Label="Pipe, Steam &amp; Sprinkler Fitter"></AllowedValue>
+                <AllowedValue Value="588380007" Label="Carpenter"></AllowedValue>
+                <AllowedValue Value="588380008"
+                              Label="Auto/Aircraft/Equip. Mechanics/Repair"></AllowedValue>
+                <AllowedValue Value="588380009" Label="Facility Maintenance/Repair"></AllowedValue>
+                <AllowedValue Value="588380010" Label="Farm/Ranch/Agriculture"></AllowedValue>
+                <AllowedValue Value="588380011" Label="Metalworking"></AllowedValue>
+                <AllowedValue Value="588380012" Label="Masonry/Concrete"></AllowedValue>
+                <AllowedValue Value="588380013" Label="Drywall/Ceiling Installer"></AllowedValue>
+                <AllowedValue Value="588380014" Label="Other"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_relationshiptype" DisplayName="Relationship Type" width="100" hideDisplayName="true"
+                    type="picklist" columnClass="trade-listview">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Transactional (Infrequent)"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Social (Ongoing)"></AllowedValue>
+                <AllowedValue Value="588380002" Label="Strategic (Partner)"></AllowedValue>
+              </AllowedValues>
+            </column>            
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/UIGrid.html</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+
+    <viewDefinition viewDefinitionID='AllEmailTemplatesGrid' type='Grid' viewState='Read' title='Select a Template'
+                    showPaginationBarAtTop="false" showRadioButton="true">
+      <recordCount>15</recordCount>
+      <viewParameters>
+        <viewParameter name='title' value='' attributeType='string' isRoot='false' class="col-xs-8"
+                       type="input"></viewParameter>
+        <viewParameter name='templatetypecode' value='contact' useDefaultValue='true' attributeType='entityname'
+                       isRoot='false' class="col-xs-8" type="filter"></viewParameter>
+        <viewParameter name='title2' value='HDC' useDefaultValue='true' attributeType='string'
+                         isRoot='false' class="col-xs-8" type="filter"></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Email Templates'>
+          <viewData>AllEmailTemplates</viewData>
+          <entitySchemaName>template</entitySchemaName>
+          <idAttribute>templateid</idAttribute>
+          <columns>
+            <column dataDefAttr="title" DisplayName="Title" width="100" type="text"></column>
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/UIGrid.html</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+
+    <viewDefinition viewDefinitionID='ViewEmailTemplate' type='Isotope' viewState='View' title='View Template'>
+      <viewParameters>
+        <viewParameter name='templateid' value='' attributeType='Guid' isRoot='true'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='ViewTemplate'>
+          <viewData>AllEmailTemplates</viewData>
+          <entitySchemaName>template</entitySchemaName>
+          <idAttribute>templateid</idAttribute>
+          <columns>
+            <column dataDefAttr="subject" DisplayName="Subject" width="100" type="cdata"
+                                  hideDisplayName="false" displayNameClass="ro-view-display-name"
+                                  columnClass="ro-view divider"></column>
+            <column dataDefAttr="body" DisplayName="Body" width="100" type="cdata" property="template"
+                    hideDisplayName="true" valueClass="txt-primary h3" columnClass="ro-view-light-bg"
+                    displayNameClass="ro-view-display-name"></column>
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes>
+        <action name="close" title="Close" type="close" navTo="create">
+
+        </action>
+      </actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+
+    <viewDefinition viewDefinitionID='PreviewEmail' type='Isotope' viewState='View' title='Preview Email'>
+      <viewParameters>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='ViewEmail'>
+          <viewData></viewData>
+          <entitySchemaName>email</entitySchemaName>
+          <idAttribute>emailid</idAttribute>
+          <columns>
+            <column dataDefAttr="subject" DisplayName="Subject" width="100" type="text"
+                                  hideDisplayName="false" displayNameClass="ro-view-display-name"
+                                  columnClass="ro-view divider"></column>
+            <column dataDefAttr="description" DisplayName="Body" width="100" type="html"
+                    hideDisplayName="true" valueClass="txt-primary h3" columnClass="ro-view-light-bg"
+                    displayNameClass="ro-view-display-name"></column>
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes>
+        <action name="close" title="Close" type="close" navTo="create"></action>
+      </actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller></controller>
+    </viewDefinition>
+
+    <viewDefinition viewDefinitionID='FileAttachment' type='' title='' navOnBack='view'>
+      <serviceName></serviceName>
+      <regardingEntityName>contact</regardingEntityName>
+      <viewParameters>
+        <viewParameter name='contactid' value='' attributeType='Guid' isRoot='true'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Attachment'>
+          <viewData></viewData>
+          <entitySchemaName></entitySchemaName>
+          <idAttribute></idAttribute>
+          <columns>
+
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <templateUrl>/views/FileAttachment.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller></controller>
+    </viewDefinition>
+
+    <viewDefinition viewDefinitionID='NotesAttachments' type='Grid' viewState='Read' title='Attachments'
+                    showPaginationBarAtTop="false" showRadioButton="false">
+      <recordCount>20</recordCount>
+      <viewParameters>
+        <viewParameter name='contactid' value='' attributeType='Guid' isRoot='true' class=""
+                       type="" DisplayName=""></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='TaskAttachmentGrid'>
+          <viewData>EntityAttachments</viewData>
+          <entitySchemaName>annotation</entitySchemaName>
+          <idAttribute>annotationid</idAttribute>
+          <columns css='table'>
+            <column dataDefAttr="filename" DisplayName="File Name" width="100" type="binarydata" entityName="annotation" binaryAttribute="documentbody"></column>
+            <!--<column dataDefAttr="filesize" DisplayName="File Size (Bytes)" width="100" type="wholenumber"></column>-->
+            <column></column>
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/UIGrid.html</templateUrl>
+      <layoutclass></layoutclass>
+      <controller></controller>
+    </viewDefinition>
+
+    <viewDefinition viewDefinitionID='CreatePurchase' type='Isotope' viewState='Create' title='Create Purchase' navOnBack='view'>
+      <viewParameters>
+      </viewParameters>
+      <afterCreate>
+        <navigateTo pageState='view'></navigateTo>
+      </afterCreate>
+      <viewTypes>
+        <viewType>
+          <entitySchemaName>concap_hdcpurchasehistory</entitySchemaName>
+          <viewData></viewData>
+          <columns>
+            <column dataDefAttr="concap_purchase" DisplayName="Purchase Amount" width="100" type="money"
+                    hideDisplayName="false" required="true" maxLength="50"></column>
+            <column dataDefAttr="concap_purchasedescription" DisplayName="Purchase Description" width="100" type="picklist"
+                              hideDisplayName="false" required="true">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Regular Purchase"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Conversion"></AllowedValue>
+                <AllowedValue Value="588380002" Label="National Promotion"></AllowedValue>
+                <AllowedValue Value="588380003" Label="HDC Only Promotion"></AllowedValue>
+                <AllowedValue Value="588380004" Label="In-Store Event"></AllowedValue>
+                <AllowedValue Value="588380005" Label="Large Focus Event"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_contact" DisplayName="Contact" width="100"
+                              type="lookup-hidden" entityLogicalName="contact" idParameter="contactid"
+                              primaryId="SelectedRecordId" primaryName="" hideDisplayName="false"
+                              source="getScope()"></column>
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='SaveAndNewPurchase' type='Isotope' viewState='Create' title='Create Purchase' navOnBack='view'>
+      <viewParameters>
+      </viewParameters>
+      <afterCreate>
+        <navigateTo pageState='purchase'></navigateTo>
+      </afterCreate>
+      <viewTypes>
+        <viewType>
+          <entitySchemaName>concap_hdcpurchasehistory</entitySchemaName>
+          <viewData></viewData>
+          <columns>
+            <column dataDefAttr="concap_purchase" DisplayName="Purchase Amount" width="100" type="money"
+                    hideDisplayName="false" required="true" maxLength="50"></column>
+            <column dataDefAttr="concap_purchasedescription" DisplayName="Purchase Description" width="100" type="picklist"
+                              hideDisplayName="false" required="true">
+              <AllowedValues>
+                <AllowedValue Value="588380000" Label="Regular Purchase"></AllowedValue>
+                <AllowedValue Value="588380001" Label="Conversion"></AllowedValue>
+                <AllowedValue Value="588380002" Label="National Promotion"></AllowedValue>
+                <AllowedValue Value="588380003" Label="HDC Only Promotion"></AllowedValue>
+                <AllowedValue Value="588380004" Label="In-Store Event"></AllowedValue>
+                <AllowedValue Value="588380005" Label="Large Focus Event"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="concap_contact" DisplayName="Contact" width="100"
+                              type="lookup-hidden" entityLogicalName="contact"
+                              primaryId="SelectedRecordId" primaryName="" hideDisplayName="false"
+                              source="getScope()"></column>
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+
+    <viewDefinition viewDefinitionID='TaskSearchView' type='Isotope' viewState='Search' title=''>
+      <viewParameters>
+        <viewParameter name='tasksubject' value='' attributeType='string' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Search'>
+          <viewData></viewData>
+          <columns css='form-inline'>            
+            <column dataDefAttr="subject" DisplayName="" placeHolder="Task Subject" width="100" type="inputgroup"
+                    valueChangeParameter="tasksubject" columnClass="col-xs-10 row"></column>
+            <!--<column dataDefAttr="createbutton" DisplayName="" width="100" type="button"
+                       valueChangeParameter=""
+                       columnClass=""></column>-->
+          </columns>
+          <events></events>
+          <actions>
+            <action event="search">
+              <response type="loadPageState" pageState="searchlist"></response>
+            </action>
+          </actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass>row</layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='RepTasksTile' type='grid' viewState='Read' title=''
+                    navOnSelect="view" showPaginationBarAtTop="false">
+      <recordCount>50</recordCount>
+      <viewParameters>
+        <viewParameter name='tasksubject' value='' attributeType='string' isRoot='false'></viewParameter>
+        <viewParameter name='LoggedInUserId' value='' attributeType='Guid' isRoot='false' type="LoggedInUserId"></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Contact'>
+          <viewData>RepTasks</viewData>
+          <entitySchemaName>task</entitySchemaName>
+          <idAttribute>activityid</idAttribute>
+          <class>tile</class>
+          <columns>
+            <column dataDefAttr="subject" DisplayName="Subject" hideDisplayName="true" width="100" type="text" class="fullname-listview"></column>
+            <column dataDefAttr="scheduledend" DisplayName="Due Date" hideDisplayName="true" width="100" type="datetime" class="trade-listview" format="MM/dd/yyyy"
+                    columnClass="col-xs-6 row"></column>
+            <column dataDefAttr="concap_repcontact" DisplayName="Contact" hideDisplayName="true" width="100" type="lookup" class="trade-listview"
+                    columnClass="col-xs-6 row"></column>
+            <column dataDefAttr="statecode" DisplayName="Status" type="picklist" hideDisplayName="true" class="trade-listview" 
+                    columnClass="">
+              <AllowedValues>
+                <AllowedValue Value="0" Label="Open"></AllowedValue>
+                <AllowedValue Value="1" Label="Completed"></AllowedValue>
+                <AllowedValue Value="2" Label="Canceled"></AllowedValue>
+              </AllowedValues>
+            </column>
+          </columns>
+          <events>
+            <event type="record_selected" name="view_task">
+              <recordSelectParameter name="taskid" attribute="activityid" cache="true"></recordSelectParameter>
+            </event>           
+          </events>
+          <actions>
+            <action event="view_task">
+              <response type="loadPageState" pageState="view"></response>
+            </action>           
+          </actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>    
+    <viewDefinition viewDefinitionID='ViewTask' type='Isotope' viewState='View' title='View Task'>
+      <viewParameters>
+        <viewParameter name='taskid' value='' attributeType='Guid' isRoot='true'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Task'>
+          <viewData>RepTasks</viewData>
+          <entitySchemaName>task</entitySchemaName>
+          <idAttribute>activityid</idAttribute>
+          <columns>
+            <column dataDefAttr="subject" DisplayName="Subject" width="100" type="text"
+                    hideDisplayName="true" valueClass="txt-primary h3" columnClass="ro-view-light-bg"
+                    displayNameClass="ro-view-display-name"></column>
+          
+            <column dataDefAttr="scheduledend" DisplayName="Due Date" width="100" type="datetime"
+                    hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider" format="MM/dd/yyyy"></column>
+            <column dataDefAttr="concap_repcontact" DisplayName="Contact" width="100" type="lookup"
+                    hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider" ></column>
+            <column dataDefAttr="description" DisplayName="Description" width="100" type="text"
+                    hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider" ></column>
+            <column dataDefAttr="statecode" DisplayName="Status" type="picklist"
+                    hideDisplayName="false" displayNameClass="ro-view-display-name"
+                    columnClass="ro-view divider" >
+              <AllowedValues>
+                <AllowedValue Value="0" Label="Open"></AllowedValue>
+                <AllowedValue Value="1" Label="Completed"></AllowedValue>
+                <AllowedValue Value="2" Label="Canceled"></AllowedValue>
+              </AllowedValues>
+            </column>
+          </columns>
+          <navButtons>
+            <navButton title="Cancel" controlClass="btn-default btn" buttonClickEvent="navBack"></navButton>
+            <navButton title="Complete" controlClass="btn-primary btn" buttonClickEvent="navComplete"></navButton>            
+          </navButtons>
+          <events>
+            <event name="navBack"></event>
+            <event name="navComplete"></event>
+           
+          </events>
+          <actions>
+            <action event="navBack">
+              <response type="loadPageState" pageStates="search_list"></response>
+            </action>
+            <action event="navComplete">
+              <response type="changeCRMEntityStatus" entityLogicalName="task" stateCode="1" statusCode="5">
+                <inputParameters>
+                  <inputParameter name="taskid"></inputParameter>
+                </inputParameters>
+                <response type="loadPageState" pageStates="searchlist"></response>
+              </response>
+            </action>
+           
+          </actions>
+        </viewType>
+      </viewTypes>
+    
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    
+    <viewDefinition viewDefinitionID='CreateTask' type='Isotope' viewState='Create' title='Create Task'>
+      <viewParameters>
+      </viewParameters>
+      <afterCreate>
+        <navigateTo pageState='view'></navigateTo>
+      </afterCreate>
+      <viewTypes>
+        <viewType>
+          <entitySchemaName>task</entitySchemaName>
+          <viewData></viewData>
+          <columns>
+            <column dataDefAttr="subject" DisplayName="Subject" width="100" type="text"
+                    hideDisplayName="false" required="true" maxLength="50"></column>
+            <column dataDefAttr="scheduledend" DisplayName="Due Date" type="datetime" minDate="01-01-2000" format="MM-dd-yyyy"
+                    hideDisplayName="false" required="false" ></column>
+            <column dataDefAttr="description" DisplayName="Description" width="100" type="multilinetext"
+                    hideDisplayName="false" maxLength="2000"></column>
+            <column dataDefAttr="regardingobjectid" DisplayName="Logged In Contact" width="100"
+                    type="lookup-hidden" entityLogicalName="contact" idParameter="LoggedInUserId" nameParameter="LoggedInUserName"
+                    hideDisplayName="false"></column>
+            <column dataDefAttr="concap_repcontact" DisplayName="Rep Contact" width="100"
+                    type="lookup-hidden" entityLogicalName="contact" idParameter="contactid"
+                    hideDisplayName="false"></column>
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes>
+      <actionTypes></actionTypes>
+      <templateUrl>/views/Isotope.htm</templateUrl>
+      <layoutclass></layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+
+    <viewDefinition viewDefinitionID='ContactTasks' type='Grid' viewState='Read' title='Tasks'
+                    showPaginationBarAtTop="false" showRadioButton="false">
+      <recordCount>20</recordCount>
+      <viewParameters>
+        <viewParameter name='contactid' value='' attributeType='Guid' isRoot='true' class=""
+                       type="" DisplayName=""></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='ContactTaskGrid'>
+          <viewData>RepTasks</viewData>
+          <entitySchemaName>task</entitySchemaName>
+          <idAttribute>activityid</idAttribute>
+          <columns css='table'>
+            <column dataDefAttr="subject" DisplayName="Subject" width="100" type="text" ></column>
+            <column dataDefAttr="scheduledend" DisplayName="Due Date" width="100" type="datetime" format="MM/dd/yyyy"></column>
+            <column dataDefAttr="statecode" DisplayName="Status" type="picklist">
+              <AllowedValues>
+                <AllowedValue Value="0" Label="Open"></AllowedValue>
+                <AllowedValue Value="1" Label="Completed"></AllowedValue>
+                <AllowedValue Value="2" Label="Canceled"></AllowedValue>
+              </AllowedValues>
+            </column>        
+          </columns>
+          <events></events>
+          <actions></actions>
+        </viewType>
+      </viewTypes> 
+      <templateUrl>/views/UIGrid.html</templateUrl>
+      <layoutclass></layoutclass>
+      <controller></controller>
+    </viewDefinition>
+    
+  </viewDefinitions>
+</viewComposition>

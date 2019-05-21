@@ -1,0 +1,49 @@
+﻿<!--form role="form">
+<div class="form-group">
+    <label>User Name</label><input = type="text" class="form-control" ng-model="Email"/>
+    <label>Password</label><input = type="password" class="form-control" ng-model="Password"/>
+    <button class="btn btn-default" ng-click="authenticate()">Login</button>
+    <br>
+    <P><span ng-bind="Message"></P>
+    <br>
+</div>
+<form -->
+
+<nav class="navbar navbar-inverse navbar-fixed-top custom_navbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand custom_navbar-brand" href="#"></a>
+
+            <div class="visible-xs-inline no-left-button"><label class="h3 page-title ">Sign In</label></div>
+
+        </div>
+    </div>
+</nav>
+<div class="container full-height">
+
+    <div ng-form="loginForm" id="loginForm" class="row form-signin custom_signin_container ">
+        <div class="row logo-big">
+            <img src="./custom/client/images/logo-big.png">
+        </div>
+        <h2 class="form-signin-heading hidden-xs">Sign In</h2>
+
+        <div ng-if="Message!=''" class="ng-binding alert alert-danger" ng-bind="Message"></div>
+        <label class="sr-only" for="inputEmail">Email address</label>
+        <input class="form-control ng-pristine ng-valid ng-valid-email" name='inputEmail' id="inputEmail"
+               type="email"
+               placeholder="Username"
+               ng-model="Email" ng-required="true"/>
+        <error-messages form="loginForm" variable="'inputEmail'"
+                        display-name="'Email address'" only-on-submit="true"></error-messages>
+
+        <label class="sr-only" for="inputPassword">Password</label>
+        <input class="form-control ng-pristine ng-valid" id="inputPassword" type="password" placeholder="Password"
+               ng-model="Password"/>
+        <button class="btn btn-default btn-primary btn-block" type="submit" ng-click="authenticate(loginForm)">Sign In
+        </button>
+        <div class="spinner-container" id="spinner-1" us-spinner="{radius:20, width:8, length: 16}"
+             spinner-key="spinner-1"></div>
+    </div>
+    <toaster-container toaster-options="{'position-class': 'toast-top-full-width'}"></toaster-container>
+
+</div>

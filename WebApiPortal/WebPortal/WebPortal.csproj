@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{676E5624-7A4E-4387-9D6F-D6C4DEE44CB3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebPortal</RootNamespace>
+    <AssemblyName>WebPortal</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\angular-responsive-tables.min.css" />
+    <Content Include="css\toaster.min.css" />
+    <Content Include="custom\client\images\glyphicons-310-comments.png" />
+    <Content Include="custom\client\images\glyphicons-579-sms.png" />
+    <Content Include="custom\client\images\logo-big.png" />
+    <Content Include="custom\mt\images\apple-touch-icon.png" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Properties\PublishProfiles\MTCCdemoApp - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\mtcontactcaptureportal - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\mtcontactcaptureportal - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\mtcrmportal - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\mtcrmportal - Web Deploy.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\bootstrap_theme.min.css" />
+    <Content Include="css\components.css" />
+    <Content Include="css\core.css" />
+    <Content Include="css\layout.css" />
+    <Content Include="css\modules.css" />
+    <Content Include="css\ng-table.min.css" />
+    <Content Include="css\ngtable.css" />
+    <Content Include="css\responsive.css" />
+    <Content Include="css\theme.css" />
+    <Content Include="css\trNgGrid.min.css" />
+    <Content Include="css\typography.css" />
+    <Content Include="css\wipfli_site.css" />
+    <Content Include="custom\client\css\theme.css" />
+    <Content Include="custom\client\images\logo.PNG" />
+    <Content Include="custom\mt\css\theme.css" />
+    <Content Include="custom\mt\images\logo.PNG" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="images\logo.PNG" />
+    <Content Include="Index.html" />
+    <Content Include="config\MetaData.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="scripts\App.js" />
+    <Content Include="scripts\businesslogic\ResponseType.js" />
+    <Content Include="scripts\Constants.js" />
+    <Content Include="scripts\controllers\FileUploadController.js" />
+    <Content Include="scripts\controllers\HomeController.js" />
+    <Content Include="scripts\controllers\LoginController.js" />
+    <Content Include="scripts\controllers\ModalController2.js" />
+    <Content Include="scripts\controllers\ViewCompositionController.js" />
+    <Content Include="scripts\controllers\ViewController.js" />
+    <Content Include="scripts\directives\binarydatadirective.js" />
+    <Content Include="scripts\directives\binaryimagedirective.js" />
+    <Content Include="scripts\directives\buttondirective.js" />
+    <Content Include="scripts\directives\cdataDirective.js" />
+    <Content Include="scripts\directives\collapsibleTreeDctv.js" />
+    <Content Include="scripts\directives\FormValidationDirectives.js" />
+    <Content Include="scripts\directives\htmlDirective.js" />
+    <Content Include="scripts\directives\IsotopeDirective.js" />
+    <Content Include="scripts\directives\LookupDirective.js" />
+    <Content Include="scripts\directives\MultiLookupDirective.js" />
+    <Content Include="scripts\directives\OrgChartDirective.js" />
+    <Content Include="scripts\directives\paginationDirective.js" />
+    <Content Include="scripts\directives\RadialTreeDirective.js" />
+    <Content Include="scripts\directives\SearchDirective.js" />
+    <Content Include="scripts\directives\TimelineDirective.js" />
+    <Content Include="scripts\directives\XChartDirective.js" />
+    <Content Include="scripts\PreLoad.js" />
+    <Content Include="scripts\services\AuthenticationService.js" />
+    <Content Include="scripts\services\BroadcastService.js" />
+    <Content Include="scripts\services\CrmDataService.js" />
+    <Content Include="scripts\services\ImageService.js" />
+    <Content Include="scripts\services\MetadataService.js" />
+    <Content Include="scripts\services\ODataRetrievalService.js" />
+    <Content Include="scripts\services\PortalApiService.js" />
+    <Content Include="scripts\services\SpinnerService.js" />
+    <Content Include="scripts\services\UxService.js" />
+    <Content Include="scripts\services\ViewCompositionService.js" />
+    <Content Include="scripts\vendor\angular-responsive-tables.min.js" />
+    <Content Include="scripts\vendor\angular.1.3.15\angular-animate.min.js" />
+    <Content Include="scripts\vendor\angular.1.3.15\angular-cookies.min.js" />
+    <Content Include="scripts\vendor\angular.1.3.15\angular-messages.min.js" />
+    <Content Include="scripts\vendor\angular.1.3.15\angular-route.min.js" />
+    <Content Include="scripts\vendor\angular-spinner.min.js" />
+    <Content Include="scripts\vendor\angular-ui-router.min.js" />
+    <Content Include="scripts\vendor\angular.1.3.15\angular.min.js" />
+    <Content Include="scripts\vendor\bootstrap.min.js" />
+    <Content Include="scripts\vendor\d3.v3.min.js" />
+    <Content Include="scripts\vendor\download.min.js" />
+    <Content Include="scripts\vendor\FileAPI.min.js" />
+    <Content Include="scripts\vendor\isotope.pkgd.js" />
+    <Content Include="scripts\vendor\jquery.xml2json.js" />
+    <Content Include="scripts\vendor\jquery1.7.min.js" />
+    <Content Include="scripts\vendor\json2.js" />
+    <Content Include="scripts\vendor\masonry.pkgd.min.js" />
+    <Content Include="scripts\vendor\ng-file-upload.min.js" />
+    <Content Include="scripts\vendor\SDK.REST.js" />
+    <Content Include="scripts\vendor\spin.js" />
+    <Content Include="scripts\vendor\timeline.js" />
+    <Content Include="scripts\vendor\toaster.min.js" />
+    <Content Include="scripts\vendor\ui-bootstrap-tpls-0.11.2.min.js" />
+    <Content Include="scripts\vendor\xcharts.js" />
+    <Content Include="scripts\vendor\xcharts.min.js" />
+    <Content Include="scripts\vendor\xml2json.min.js" />
+    <Content Include="views\Chart.htm" />
+    <Content Include="views\CollapsibleTree.html" />
+    <Content Include="views\DuplicateContact.htm" />
+    <Content Include="views\Email.htm" />
+    <Content Include="views\FileAttachment.htm" />
+    <Content Include="views\Home.htm" />
+    <Content Include="views\Isotope.htm" />
+    <Content Include="views\IsotopeTemplate.htm" />
+    <Content Include="views\Login.htm" />
+    <Content Include="views\Lookup.htm" />
+    <Content Include="views\MT_HomePage.htm" />
+    <Content Include="views\MultiLookup.htm" />
+    <Content Include="views\OrgChart.htm" />
+    <Content Include="views\Popup.htm" />
+    <Content Include="views\RadialTree.htm" />
+    <Content Include="views\Search.htm" />
+    <Content Include="views\TimeLine.htm" />
+    <Content Include="views\TwoColumnView.htm" />
+    <Content Include="views\UIGrid.html" />
+    <Content Include="views\ViewComposition.htm" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="scripts\filters\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52399</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52399/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

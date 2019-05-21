@@ -1,0 +1,221 @@
+﻿<viewComposition>
+  <pages>
+    <page title="Home" href=""></page>
+    <page title="Quotes" isDefault="true">
+      <viewDefinition>SearchView</viewDefinition>
+      <viewDefinition>CreateQuoteIsotope</viewDefinition>
+      <viewDefinition>AllQuotesIsoType</viewDefinition>
+    </page>
+    <page title="Orders"></page>
+    <page title="Documents"></page>
+    <page title="Discussion"></page>
+    <page title="Leads"></page>
+    <page title="Events"></page>    
+  </pages>
+  <dataDefinitions>
+    <dataDefinition name='AllQuotes' type='ODATA'>
+      <odataQuery>
+        <entity>Quote</entity>
+        <select>QuoteId,Name,Description,QuoteNumber,TotalAmount,ShippingMethodCode,EffectiveFrom</select>
+        <filters>
+          <filter viewParamName='Name'>substringof('{Name}',Name)</filter>
+        </filters>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+    <dataDefinition name='QuoteItemsForQuote' type='ODATA'>
+      <odataQuery>
+        <entity>QuoteDetail</entity>
+        <select>QuoteDetailId,CreatedOn,ProductId,Quantity,PricePerUnit</select>
+        <filters>
+          <filter viewParamName='QuoteId'>QuoteId/Id eq guid'{QuoteId}'</filter>
+        </filters>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+    <dataDefinition name='AllAccounts' type='ODATA'>
+      <odataQuery>
+        <entity>Account</entity>
+        <select>AccountId,Name,Description,Telephone1</select>
+        <filters>
+          <!--<filter viewParamName='Name'>substringof('{Name}',Name)</filter>
+          <filter viewParamName='IndustryCode'>IndustryCode/Value eq {IndustryCode}</filter>-->
+        </filters>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+    <dataDefinition name='AllOpportunities' type='ODATA'>
+      <odataQuery>
+        <entity>Opportunity</entity>
+        <select>OpportunityId,Name,CreatedOn</select>
+        <filters>
+          <!--<filter viewParamName='Name'>substringof('{Name}',Name)</filter>
+          <filter viewParamName='IndustryCode'>IndustryCode/Value eq {IndustryCode}</filter>-->
+        </filters>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+  </dataDefinitions>
+  <viewDefinitions>
+    <viewDefinition viewDefinitionID='HomeView' type='Home' title='Home'>
+      <viewParameters>
+        <!--<viewParameter name='Name' value='' isRoot='false'></viewParameter>-->
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Home'>
+          <viewData></viewData>
+          <columns>
+            <!--<column dataDefAttr="Name" DisplayName="Quote Name" width="100" type="text"></column>-->
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_Home.htm</templateUrl>
+      <layoutclass>jumbotron</layoutclass>
+      <controller>HomeController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='LoginView' type='Login' title='Login'>
+      <viewParameters>
+        <!--<viewParameter name='Name' value='' isRoot='false'></viewParameter>-->
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Login'>
+          <viewData></viewData>
+          <columns>
+            <!--<column dataDefAttr="Name" DisplayName="Quote Name" width="100" type="text"></column>-->
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_Login.htm</templateUrl>
+      <controller>LoginController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='SearchView' type='Isotope' viewState='Search' title='Search'>
+      <viewParameters>
+        <viewParameter name='Name' value='' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Search'>
+          <viewData></viewData>
+          <columns>
+            <column dataDefAttr="Name" DisplayName="Quote Name" width="100" type="text"></column>
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_Isotope.htm</templateUrl>
+      <layoutclass>jumbotron</layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='CreateQuoteIsotope' type='Isotope' viewState='Create' title='Create Quote'>
+      <viewParameters>
+        <!--<viewParameter name='QuoteId' value='' isRoot='false'></viewParameter>-->
+      </viewParameters>
+      <viewTypes>
+        <viewType>
+          <entitySchemaName>Quote</entitySchemaName>
+          <viewData></viewData>
+          <columns>
+            <column dataDefAttr="Name" DisplayName="Quote Name" width="100" type="text"></column>
+            <column dataDefAttr="Description" DisplayName="Description" width="100" type="text"></column>
+            <column dataDefAttr="QuoteNumber" DisplayName="Quote Number" width="100" type="text"></column>
+            <column dataDefAttr="TotalAmount" DisplayName="Total Amount" width="100" type="money"></column>
+            <column dataDefAttr="CustomerId" DisplayName="Account" width="100" type="lookup" viewDefinitionId="AllAccountsGrid" entityLogicalName="account" primaryId="AccountId" primaryName="Name"></column>
+            <column dataDefAttr="OpportunityId" DisplayName="Opportunity" width="100" type="lookup" viewDefinitionId="AllOpportunitiesGrid" entityLogicalName="opportunity" primaryId="OpportunityId" primaryName="Name"></column>
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_Isotope.htm</templateUrl>
+      <layoutclass>col-md-4</layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='AllQuotesIsoType' type='Isotope' viewState='Edit' title='Edit Quote'>
+      <recordCount>10</recordCount>
+      <viewParameters>
+        <viewParameter name='QuoteId' value='' isRoot='false'></viewParameter>
+        <viewParameter name='Name' value='' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Quotes'>
+          <viewData>AllQuotes</viewData>
+          <entitySchemaName>Quote</entitySchemaName>
+          <idAttribute>QuoteId</idAttribute>
+          <columns>
+            <column dataDefAttr="Name" DisplayName="Quote Name" width="100" type="text"></column>
+            <column dataDefAttr="Description" DisplayName="Description" width="100" type="text"></column>
+            <column dataDefAttr="QuoteNumber" DisplayName="Quote Number" width="100" type="text"></column>
+            <column dataDefAttr="TotalAmount" DisplayName="Total Amount" width="100" type="money"></column>
+            <column dataDefAttr="EffectiveFrom" DisplayName="Effective From" width="100" type="datetime"></column>
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_Isotope.htm</templateUrl>
+      <layoutclass>col-md-4</layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='RelatedQuoteItemsIsotope' type='Isotope' viewState='Read'>
+      <viewParameters>
+        <viewParameter name='QuoteId' value='00000000-0000-0000-0000-000000000000' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='QuoteDetails'>
+          <viewData>QuoteItemsForQuote</viewData>
+          <entitySchemaName>QuoteDetail</entitySchemaName>
+          <idAttribute>QuoteDetailId</idAttribute>
+          <columns>
+            <column dataDefAttr="Quantity" DisplayName="Quantity" width="100" type="text"></column>
+            <column dataDefAttr="PricePerUnit" DisplayName="Price Per Unit" width="100" type="money"></column>
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_Isotope.htm</templateUrl>
+      <layoutclass>col-md-4</layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='AllAccountsGrid' type='grid' viewState='Read' title='Accounts'>
+      <recordCount>10</recordCount>
+      <viewParameters>
+        <!--<viewParameter name='Title' value='' isRoot='false' attributeType='string'></viewParameter>-->
+        <!--<viewParameter name='incidentid' value='' isRoot='false' attributeType='Guid'></viewParameter>-->
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Account'>
+          <viewData>AllAccounts</viewData>
+          <entitySchemaName>Account</entitySchemaName>
+          <idAttribute>AccountId</idAttribute>
+          <columns>            
+            <column dataDefAttr="Name" DisplayName="Account Name" width="100" type="text"></column>
+            <!--<column dataDefAttr="billedserviceunits" DisplayName="Billed Service Units" width="100" type="wholenumber"></column>-->
+            <column dataDefAttr="CreatedOn" DisplayName="Created On" width="100" type="datetime"></column>
+            <!--<column dataDefAttr="wipfli_service" DisplayName="Service" width="100" type="money"></column>
+            <column dataDefAttr="wipfli_experimentdate" DisplayName="Resolved Date" width="100" type="datetime"></column>-->
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_UIGrid.htm</templateUrl>
+      <layoutclass>col-md-6</layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='AllOpportunitiesGrid' type='grid' viewState='Read' title='Opportunities'>
+      <recordCount>10</recordCount>
+      <viewParameters>
+        <!--<viewParameter name='Title' value='' isRoot='false' attributeType='string'></viewParameter>-->
+        <!--<viewParameter name='incidentid' value='' isRoot='false' attributeType='Guid'></viewParameter>-->
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Opportunity'>
+          <viewData>AllOpportunities</viewData>
+          <entitySchemaName>Opportunity</entitySchemaName>
+          <idAttribute>OpportunityId</idAttribute>
+          <columns>
+            <column dataDefAttr="Name" DisplayName="Opp Name" width="100" type="text"></column>
+            <!--<column dataDefAttr="billedserviceunits" DisplayName="Billed Service Units" width="100" type="wholenumber"></column>-->
+            <column dataDefAttr="CreatedOn" DisplayName="Created On" width="100" type="datetime"></column>
+            <!--<column dataDefAttr="wipfli_service" DisplayName="Service" width="100" type="money"></column>
+            <column dataDefAttr="wipfli_experimentdate" DisplayName="Resolved Date" width="100" type="datetime"></column>-->
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_UIGrid.htm</templateUrl>
+      <layoutclass>col-md-6</layoutclass>
+      <controller>ViewController</controller>
+    </viewDefinition>
+  </viewDefinitions>
+</viewComposition>

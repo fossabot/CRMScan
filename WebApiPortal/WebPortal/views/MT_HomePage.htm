@@ -1,0 +1,71 @@
+﻿<div id="viewTile_homepage" ng-controller="ViewController">
+    <div class="spacer alert alert-danger text-center" ng-if="data[0].records.length==0">
+            Not Found
+        </div>
+    
+    <div class="" ng-model=data[0].records id="{{data[0].records[0][viewDefinition.viewTypes.viewType.idAttribute]}}"
+                ng-repeat="record in data[0].records" ng-init="count=0">
+            
+            <div class="row ">
+                
+                <div class="col-lg-6 col-md-6 col-sm-6 {{column.columnClass}}"
+                        ng-if="record[column.dataDefAttr] || column.showIfNull === 'true'"
+                        ng-repeat="column in viewDefinition.viewTypes.viewType.columns.column">
+                    <div ng-if="column.hideDisplayName !== 'true'" class="{{column.displayNameClass}}">
+                        <span>{{column.DisplayName}}: </span>
+                    </div>
+                    <span ng-if="column.type == 'text'">
+                        <span name="{{column.dataDefAttr}}" class="{{column.valueClass}}">{{record[column.dataDefAttr]}}</span>
+                    </span>
+                    <span ng-if="column.type == 'cdata'">
+                        <wipfli-cdata column-def="column" record="record"></wipfli-cdata>
+                    </span>
+                    <span ng-if="column.type == 'html'">
+                        <wipfli-html column-def="column" record="record"></wipfli-html>
+                    </span>
+                    <span ng-if="column.type == 'telephone'" class="{{column.valueClass}}">
+                        <a data-rel="external" ng-href="tel:{{record[column.dataDefAttr]}}">
+                            <span name="{{column.dataDefAttr}}">{{record[column.dataDefAttr] | phonenumber}}</span>
+                        </a>
+                    </span>
+                    <span ng-if="column.type == 'email'" class="{{column.valueClass}}">
+                        <a ng-if="record['concap_emailoptin'].Value == 'true'" data-rel="external" href="" ng-click="emailTo(record)">
+                            <span name="{{column.dataDefAttr}}">{{record[column.dataDefAttr]}}</span>
+                        </a>
+                        <span ng-if="record['concap_emailoptin'].Value === 'false'" name="{{column.dataDefAttr}}">{{record[column.dataDefAttr]}}</span>
+                    </span>
+                    <span ng-if="column.type == 'money'" class="{{column.valueClass}}">
+                        <span name="{{column.dataDefAttr}}">{{record[column.dataDefAttr].Value}}</span>
+                    </span>
+                    <span ng-if="column.type == 'wholenumber'" class="{{column.valueClass}}">
+                        <span name="{{column.dataDefAttr}}">{{record[column.dataDefAttr]}}</span>
+                    </span>
+                    <span ng-if="column.type == 'picklist'" class="{{column.valueClass}}">
+                        <span name="{{column.dataDefAttr}}">
+                            <span ng-if="record[column.dataDefAttr].Value"
+                                    ng-repeat="allowedValue in column.AllowedValues.AllowedValue | filter:record[column.dataDefAttr].Value">{{allowedValue.Label}}</span>
+                        </span>
+                    </span>
+                    <span ng-if="column.type == 'boolean'" class="{{column.valueClass}}">
+                        <span name="{{column.dataDefAttr}}" >
+                            <span ng-if="record[column.dataDefAttr] != null"
+                                    ng-repeat="allowedValue in column.AllowedValues.AllowedValue | filter:record[column.dataDefAttr]">{{allowedValue.Label}}</span>
+                        </span>
+                    </span>
+                    <span ng-if="column.type == 'datetime'" class="{{column.valueClass}}">
+                        <span name="{{column.dataDefAttr}}">{{record[column.dataDefAttr]}}</span>
+                    </span>
+                    <span ng-if="column.type == 'lookup'" style="padding:2px 0px 2px 0px;"
+                            class="{{column.valueClass}}">
+                        <span name="{{column.dataDefAttr}}">{{record[column.dataDefAttr].Name}}</span>
+                    </span>
+                        <span ng-if="column.type == 'ui-divider'" class="{{column.columnClass}}">
+
+                    </span>
+                </div>
+            </div>
+            
+        </div>
+
+    
+</div>

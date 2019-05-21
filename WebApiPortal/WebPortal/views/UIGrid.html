@@ -1,0 +1,49 @@
+﻿<section ng-controller="ViewController">
+    <div ng-hide="loadimage">        
+        <div ><label class="h4">{{viewDefinition.title}}</label></div>
+        <div class="spacer alert alert-danger text-center" ng-if="data[0].records.length==0">
+                Not Found
+            </div>
+        <!-- Table List -->
+        <div ng-if="data[0].records.length > 0">
+            <table wt-responsive-table class="{{selectedViewType.columns.css}}">
+                <thead>
+                    <tr class="tableHeader">
+                        <th width="1%" ng-if="viewDefinition.showRadioButton == 'true'"></th>
+                        <th ng-repeat="column in viewDefinition.viewTypes.viewType.columns.column">
+                            {{column.DisplayName}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr ng-repeat="record in data[0].records">
+                        <td ng-if="viewDefinition.showRadioButton == 'true'"><input type="radio" value="record[viewDefinition.viewTypes.viewType.idAttribute]" ng-model="lookupSelectedValue" name="radiobutton" ng-click="onEdit(record[viewDefinition.viewTypes.viewType.idAttribute]);" /></td>
+                        <td ng-repeat="column in viewDefinition.viewTypes.viewType.columns.column">
+                            <!--{{getAttributeValue(record[column.dataDefAttr]);}}-->
+                            <span ng-if="column.type == 'text'" ng-bind="record[column.dataDefAttr]"></span>
+                            <span ng-if="column.type == 'money'" ng-bind="record[column.dataDefAttr].Value"></span>
+                            <span ng-if="column.type == 'wholenumber'" ng-bind="record[column.dataDefAttr]"></span>
+                            <span ng-if="column.type == 'picklist'"
+                                      ng-repeat="allowedValue in column.AllowedValues.AllowedValue | filter:record[column.dataDefAttr].Value">{{allowedValue.Label}}</span>
+                            <span ng-if="column.type == 'datetime'" ng-bind="record[column.dataDefAttr] | date: column.format"></span>
+                            <span ng-if="column.type == 'lookup'" ng-bind="record[column.dataDefAttr].Name"></span>
+                            <span ng-if="column.type == 'binarydata'">
+                                <wipfli-binary-data column-def="column" record="record" on-click="getAttachment(record[viewDefinition.viewTypes.viewType.idAttribute])"></wipfli-binary-data>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div ng-if="HasMoreRecords==true">
+        <ul class="pager">
+            <li class="previous"><a ng-click='loadPreviousPage()'>Previous </a></li>
+            <li class="next"><a ng-click='loadNextPage()'>Next </a></li>
+        </ul>
+    </div>
+</section>
+

@@ -1,0 +1,96 @@
+﻿<viewComposition>
+  <dataDefinitions>
+    <dataDefinition name='AllAccounts' type='ODATA'>
+      <odataQuery>
+        <entity>Account</entity>
+        <select>AccountId,Name,Description,Telephone1</select>
+        <filters>
+          <filter viewParamName='Name'>substringof('{Name}',Name)</filter>
+          <filter viewParamName='IndustryCode'>IndustryCode/Value eq {IndustryCode}</filter>
+        </filters>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+    <dataDefinition name='AllContacts' type='ODATA'>
+      <odataQuery>
+        <entity>Contact</entity>
+        <select>ContactId,FullName,EMailAddress1</select>
+        <filters>
+          <filter viewParamName='FullName'>substringof('{FullName}',FullName)</filter>
+        </filters>
+        <expand></expand>
+      </odataQuery>
+    </dataDefinition>
+  </dataDefinitions>
+  <viewDefinitions>
+    <viewDefinition viewDefinitionID='SearchView' type='Search' viewState='Read'>
+      <viewParameters>
+        <viewParameter name='Name' value='' isRoot='false'></viewParameter>
+        <viewParameter name='FullName' value='' isRoot='false'></viewParameter>
+        <viewParameter name='IndustryCode' value='' isRoot='false'></viewParameter>
+        <viewParameter name='BirthDate' value='' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='SearchAccounts'>
+          <viewData></viewData>
+          <columns>
+            <column dataDefAttr="Name" DisplayName="Account Name" width="100" type="text"></column>
+            <column dataDefAttr="FullName" DisplayName="Contact Full Name" width="100" type="text"></column>
+            <column dataDefAttr="IndustryCode" DisplayName="Account Type" type="picklist">
+              <AllowedValues>
+                <AllowedValue Value="" Label=""></AllowedValue>
+                <AllowedValue Value="1" Label="Accounting"></AllowedValue>
+                <AllowedValue Value="2" Label="Agriculture and Non-petrol Natural Resource Extraction"></AllowedValue>
+                <AllowedValue Value="3" Label="Broadcasting Printing and Publishing"></AllowedValue>
+                <AllowedValue Value="4" Label="Brokers"></AllowedValue>
+              </AllowedValues>
+            </column>
+            <column dataDefAttr="BirhtDate" DisplayName="Birth Date" width="100" type="datetime"></column>
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_Search.htm</templateUrl>
+      <layoutclass>jumbotron </layoutclass>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='AllAccountsGrid' type='grid' viewState='Read'>
+      <recordCount>10</recordCount>
+      <viewParameters>
+        <viewParameter name='Name' value='' isRoot='false'></viewParameter>
+        <viewParameter name='IndustryCode' value='' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Account'>
+          <viewData>AllAccounts</viewData>
+          <entitySchemaName>Account</entitySchemaName>
+          <idAttribute>AccountId</idAttribute>
+          <columns>
+            <column dataDefAttr="Name" DisplayName="Account Name" width="100" type="text"></column>
+            <column dataDefAttr="Description" DisplayName="Description" width="100" type="text"></column>
+            <column dataDefAttr="Telephone1" DisplayName="Main Phone" width="100" type="text"></column>
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_UIGrid.htm</templateUrl>
+      <layoutclass>col-md-6</layoutclass>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='AllContactsGrid' type='grid' viewState='Read'>
+      <recordCount>10</recordCount>
+      <viewParameters>
+        <viewParameter name='FullName' value='' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='Contact'>
+          <viewData>AllContacts</viewData>
+          <entitySchemaName>Contact</entitySchemaName>
+          <idAttribute>ContactId</idAttribute>
+          <columns>
+            <column dataDefAttr="FullName" DisplayName="Name" width="100" type="text"></column>
+            <column dataDefAttr="EMailAddress1" DisplayName="Email" width="100" type="text"></column>
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_UIGrid.htm</templateUrl>
+      <layoutclass>col-md-6</layoutclass>
+    </viewDefinition>
+  </viewDefinitions>
+</viewComposition>

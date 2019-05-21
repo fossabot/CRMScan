@@ -1,0 +1,84 @@
+/* LAYOUT STYLES - Overridden */
+.custom_navbar-brand {
+    COLOR: #fff !important;
+    background: url('/custom/client/images/logo.PNG') no-repeat;
+    width: 120px;
+}
+
+.custom_navbar {
+    background-color: #db011c;
+    border-bottom: 1px solid #db011c;
+}
+
+.navbar-inverse {
+    background-image: linear-gradient(to bottom, #db011c 0px, #DB011C 100%);
+    background-repeat: repeat-x;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: #db011c;
+    color: white;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+    color: white;
+}
+
+.help-block {
+    color: #a94442;
+}
+
+.tile {
+    border-bottom: 1px solid grey;
+    background-color: #FFF;
+}
+
+div.tile-box :hover {
+    background-color: #F0F0F0;
+}
+
+.page-header {
+    margin-bottom: 0px;
+    color: #db011c;
+}
+
+
+
+.page-header.visible-xs {
+    margin-top: 55px;
+    position: static;
+}
+
+.btn-primary {
+    background-image: linear-gradient(to bottom, #db011c 0, #dc001b 100%);
+    border-color: #db011c;
+}
+
+.btn-primary:active, .btn-primary:hover, .btn-primary:focus {
+    background-color: #db011c;
+    border-color: #db011c;
+    outline-color: #db011c;
+}
+
+.txt-primary{
+    color: #db011c;
+}
+
+.bg-primary {
+    color: #fff;
+    background-color: #db011c;
+}
+.email-page-container { margin-top: 20px;}
+
+.fullname-listview {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.trade-listview {
+    font-size: 11px;
+}
+
+.toast-top-full-width {
+    top: 60px;
+}

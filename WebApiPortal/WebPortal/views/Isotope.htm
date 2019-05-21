@@ -1,0 +1,613 @@
+﻿<wipfli-isotope ng-controller="ViewController">
+
+    <div class="">
+        <div id="readTile" ng-if="viewDefinition.viewState == 'Read'">
+            <div ng-if="viewDefinition.showPaginationBarAtTop==true">
+                <ul class="pager">
+                    <li class="previous" ng-if="currentPage > 1">
+                        <a ng-click='loadPreviousPage()'>
+                            <span class="glyphicon glyphicon-arrow-left"></span> Prev
+                        </a>
+                    </li>
+                    <li class="next" ng-if="HasMoreRecords">
+                        <a ng-click='loadNextPage()'>
+                            Next <span class="glyphicon glyphicon-arrow-right"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <form>
+                <div class="row" ng-if="data[0].records.length > 0">
+                    <div ng-repeat="record in data[0].records" class="col-sm-6 col-md-4 tile-box">
+                        <div class="{{viewDefinition.viewTypes.viewType.class}}" ng-click="onRecordSelected(viewDefinition.viewTypes.viewType, record);">
+                            <div ng-repeat="column in viewDefinition.viewTypes.viewType.columns.column"                                 
+                                 style="min-height: 10px" class="{{column.columnClass}}">
+                                <div ng-if="column.type == 'text'">
+                                    <b ng-hide="column.hideDisplayName">{{column.DisplayName}}:</b>
+                                    <span class="{{column.class}}">{{record[column.dataDefAttr]}}</span>
+                                </div>
+                                <div ng-if="column.type == 'datetime'">
+                                    <b ng-hide="column.hideDisplayName">{{column.DisplayName}}:</b>
+                                    <span class="{{column.class}}">{{record[column.dataDefAttr] | date : column.format}}</span>
+                                </div>
+                                <div ng-if="column.type == 'money'">
+                                    <b ng-hide="column.hideDisplayName">{{column.DisplayName}}:</b>
+                                    <span class="{{column.class}}">{{record[column.dataDefAttr].Value}}</span>
+                                </div>
+                                <div ng-if="column.type == 'lookup'">
+                                    <b ng-hide="column.hideDisplayName">{{column.DisplayName}}:</b>
+                                    <span class="{{column.class}}">{{record[column.dataDefAttr].Name}}</span>
+                                </div>
+                                <div ng-if="column.type == 'picklist'">
+                                    <b ng-hide="column.hideDisplayName">{{column.DisplayName}}:</b>
+                                    <span name="{{column.dataDefAttr}}">
+                                        <span class="{{column.class}}" 
+                                              ng-repeat="allowedValue in column.AllowedValues.AllowedValue | filter:record[column.dataDefAttr].Value">{{allowedValue.Label}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="data[0].records.length == 0" class="col-sm-12">
+                    <div class="text-center"><em>No records found.</em></div>
+                </div>
+            </form>
+            <div>
+                <ul class="pager">
+                    <li class="previous" ng-if="currentPage > 1">
+                        <a ng-click='loadPreviousPage()'>
+                            <span class="glyphicon glyphicon-arrow-left"></span> Prev
+                        </a>
+                    </li>
+                    <li class="next" ng-if="HasMoreRecords">
+                        <a ng-click='loadNextPage()'>
+                            Next <span class="glyphicon glyphicon-arrow-right"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="viewTile" ng-if="viewDefinition.viewState == 'View'">
+
+            <div class="spacer alert alert-danger text-center" ng-if="data[0].records.length==0">
+                Not Found
+            </div>
+            <div ng-model=data[0].records id="{{record[viewDefinition.viewTypes.viewType.idAttribute]}}"
+                 ng-repeat="record in data[0].records" ng-init="count=0">
+                <div class="spacer visible-xs row">
+                    <div class="col-xs-12">
+                        <span class="pull-right">
+                            <wipfli-button ng-repeat="navBtn in navButtons" column="navBtn"></wipfli-button>                                                      
+                        </span>
+                    </div>
+                </div>
+                <div class="row " >
+                    <div class="col-lg-6 col-md-6 col-sm-6 {{column.columnClass}}"
+                         ng-if="record[column.dataDefAttr] || column.showIfNull === 'true'"
+                         ng-repeat="column in viewDefinition.viewTypes.viewType.columns.column">
+                        <div ng-if="column.hideDisplayName !== 'true'" class="{{column.displayNameClass}}">
+                            <span>{{column.DisplayName}}: </span>
+                        </div>
+                        <span ng-if="column.type == 'text'">
+                            <span name="{{column.dataDefAttr}}" class="{{column.valueClass}}">{{record[column.dataDefAttr]}}</span>
+                        </span>
+                        <span ng-if="column.type == 'cdata'">
+                            <wipfli-cdata column-def="column" record="record"></wipfli-cdata>
+                        </span>
+                        <span ng-if="column.type == 'binaryimage'">
+                            <wipfli-binary-image column-def="column" record="record" on-click="getBinaryData(column,record[viewDefinition.viewTypes.viewType.idAttribute])"></wipfli-binary-image>
+                        </span>
+                        <span ng-if="column.type == 'telephone'" class="{{column.valueClass}}">
+                            <a data-rel="external" ng-href="tel:{{record[column.dataDefAttr]}}">
+                                <span name="{{column.dataDefAttr}}">{{record[column.dataDefAttr] | phonenumber}}</span>
+                            </a>                            
+                            <a ng-href="sms:{{record[column.dataDefAttr]}}" style="margin-left:10px;">
+                                <!--<span class="glyphicon glyphicon-comment"></span>-->
+                                <img src="../custom/client/images/glyphicons-310-comments.png" alt="" />
+                            </a>
+                        </span>
+                        <span ng-if="column.type == 'email'" class="{{column.valueClass}}">
+                            <a ng-if="record['concap_emailoptin'].Value == 'true'" data-rel="external" href="" ng-click="emailTo(record)">
+                                <span name="{{column.dataDefAttr}}">{{record[column.dataDefAttr]}}</span>
+                            </a>
+                            <span ng-if="record['concap_emailoptin'].Value === 'false'" name="{{column.dataDefAttr}}">{{record[column.dataDefAttr]}}</span>
+                        </span>
+                        <span ng-if="column.type == 'money'" class="{{column.valueClass}}">
+                            <span ng-if="record[column.dataDefAttr].Value" 
+                                  name="{{column.datadefattr}}">${{record[column.dataDefAttr].Value}}</span>
+                            <span ng-if="record[column.dataDefAttr].Value==null" name="{{column.dataDefAttr}}">$0</span>
+                        </span>
+                        <span ng-if="column.type == 'wholenumber'" class="{{column.valueClass}}">
+                            <span name="{{column.dataDefAttr}}">{{record[column.dataDefAttr]}}</span>
+                        </span>
+                        <span ng-if="column.type == 'picklist'" class="{{column.valueClass}}">
+                            <span name="{{column.dataDefAttr}}">
+                                <span ng-if="record[column.dataDefAttr].Value"
+                                      ng-repeat="allowedValue in column.AllowedValues.AllowedValue | filter:record[column.dataDefAttr].Value">{{allowedValue.Label}}</span>
+                            </span>
+                        </span>
+                        <span ng-if="column.type == 'boolean'" class="{{column.valueClass}}">
+                            <span name="{{column.dataDefAttr}}" >
+                                <span ng-if="record[column.dataDefAttr] != null"
+                                      ng-repeat="allowedValue in column.AllowedValues.AllowedValue | filter:record[column.dataDefAttr]">{{allowedValue.Label}}</span>
+                            </span>
+                        </span>
+                        <span ng-if="column.type == 'datetime'" class="{{column.valueClass}}">
+                            <span name="{{column.dataDefAttr}}">{{record[column.dataDefAttr] | date : column.format}}</span>
+                        </span>
+                        <span ng-if="column.type == 'lookup'" style="padding:2px 0px 2px 0px;"
+                              class="{{column.valueClass}}">
+                            <span name="{{column.dataDefAttr}}">{{record[column.dataDefAttr].Name}}</span>
+                        </span>
+                         <span ng-if="column.type == 'ui-divider'" class="{{column.columnClass}}">
+                        </span>
+                        <span ng-if="column.type == 'button'" class="{{column.columnClass}}" title="{{column.description}}">
+                            <wipfli-button column="column" form="viewForm"/>
+                        </span>
+                    </div>
+                </div>
+                <hr/>
+                <div class="pull-right hidden-xs">
+                    <wipfli-button ng-repeat="navBtn in navButtons" column="navBtn"></wipfli-button>                                          
+                </div>
+            </div>
+        </div>
+
+        <div id="editTile" ng-if="viewDefinition.viewState == 'Edit'">
+            <div class="spacer alert alert-danger text-center" ng-if="data[0].records.length==0">
+                Not Found
+            </div>
+            <div ng-model=data[0].records id="{{record[viewDefinition.viewTypes.viewType.idAttribute]}}"
+                 ng-repeat="record in data[0].records" ng-init="count=0">
+                <div class="visible-xs visible-lg spacer row ">
+                    <span class="  col-xs-12">
+                        <span class=" pull-right">
+                            <button class="btn-default btn form-group"
+                                    ng-click="onBack(viewDefinition, record[viewDefinition.viewTypes.viewType.idAttribute])">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn-primary btn form-group"
+                                    ng-click="SaveCrmRecord(entityForm, record)">
+                                Save
+                            </button>
+                        </span>
+                    </span>
+                </div>
+                <div class="row">
+                    <div name="entityForm" ng-form="entityForm" id="entityForm">
+                        <small class="help-block col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                               ng-show="entityForm.$invalid && entityForm.$submitted">Please correct errors below and
+                            retry.
+                        </small>
+                        <div class="col-lg-6 col-md-6 col-sm-6 form-group"
+                             ng-repeat="column in viewDefinition.viewTypes.viewType.columns.column"
+                             has-error>
+                            <div ng-if="column.type == 'label'">
+                                {{column.DisplayName}}                                
+                            </div>
+                            <div ng-if="column.type == 'text'">
+                                {{column.DisplayName}} <span ng-show="column.required"
+                                                             class="required-asteric"> *</span>
+                                <input class="form-control" type="text" name="{{column.dataDefAttr}}"
+                                       id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                                       ng-model="record[column.dataDefAttr]" ng-required="{{column.required}}">
+                            </div>
+                            <div ng-if="column.type == 'multilinetext'">
+                                {{column.DisplayName}} <span ng-show="column.required"
+                                                             class="required-asteric"> *</span>
+                                <textarea class="form-control {{column.valueClass}}" type="text"
+                                          name="{{column.dataDefAttr}}"
+                                          id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                                          ng-model="record[column.dataDefAttr]"
+                                          ng-required="{{column.required}}"
+                                          rows="{{column.minRows}}">
+                                          </textarea>
+                            </div>
+                            <div ng-if=" column.type== 'password'">
+                                {{column.DisplayName}} <span ng-show="column.required"
+                                                             class="required-asteric"> *</span>
+                                <input class="form-control " type="password" name="{{column.dataDefAttr}}"
+                                       id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                                       ng-model="record[column.dataDefAttr]" ng-required="{{column.required}}">
+                            </div>
+                            <div ng-if="column.type == 'email'">
+                                {{column.DisplayName}} <span ng-show="column.required"
+                                                             class="required-asteric"> *</span>
+                                <input class="form-control" type="email" name="{{column.dataDefAttr}}"
+                                       id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                                       ng-model="record[column.dataDefAttr]" ng-required="{{column.required}}">
+
+
+                            </div>
+                            <div ng-if="column.type == 'telephone'">
+                                {{column.DisplayName}} <span ng-show="column.required"
+                                                             class="required-asteric"> *</span>
+                                <input class="form-control " type="text" name="{{column.dataDefAttr}}"
+                                       id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                                       ng-model="record[column.dataDefAttr]" ng-required="{{column.required}}">
+                            </div>
+                            <div ng-if="column.type == 'money'">
+                                {{column.DisplayName}} <span ng-show="column.required"
+                                                             class="required-asteric"> *</span>
+                                <input class="form-control " type="text" name="{{column.dataDefAttr}}"
+                                       id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                                       ng-model="record[column.dataDefAttr].Value" ng-required="{{column.required}}">
+                            </div>
+                            <div ng-if="column.type == 'wholenumber'">
+                                {{column.DisplayName}} <span ng-show="column.required"
+                                                             class="required-asteric"> *</span>
+                                <input type="text" class="form-control " name="{{column.dataDefAttr}}"
+                                       id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                                       ng-model="record[column.dataDefAttr]" ng-required="{{column.required}}">
+                            </div>
+                            <div ng-if="column.type == 'picklist'">
+                                <span>{{column.DisplayName}}</span><span ng-show="column.required"
+                                                                         class="required-asteric"> *</span>
+                                <select class="form-control " name="{{column.dataDefAttr}}"
+                                        ng-required="{{column.required}}"
+                                        ng-model="record[column.dataDefAttr]"
+                                        ng-options="allowedValue.Label for allowedValue in column.AllowedValues.AllowedValue">
+                                    <!--<option ng-if="!column.required"></option>-->
+                                </select>
+                            </div>
+                            <div ng-if="column.type == 'boolean'">
+                                        <div ng-if="column.format == 'dropdown'">
+                                            {{column.DisplayName}}<span ng-show="column.required"
+                                                                                 class="required-asteric"> *</span>
+                                            <select class="form-control " name="{{column.dataDefAttr}}"
+                                                ng-required="{{column.required}}"
+                                                ng-model="record[column.dataDefAttr]"
+                                                ng-options="allowedValue.Label for allowedValue in column.AllowedValues.AllowedValue">
+                                                <option ng-if="!column.required"></option>
+                                            </select>
+                                         </div>
+                                        <label style="font-weight:100;" ng-if="column.format == 'checkbox'">
+                                            {{column.DisplayName}}<span ng-show="column.required"
+                                                                                 class="required-asteric"> *</span>
+                                            <input type="checkbox"  ng-model="record[column.dataDefAttr]" 
+                                            ng-checked="record[column.dataDefAttr]" />
+                                        </label>
+                                        <label style="font-weight:100;" ng-if="column.format == 'radio'">
+                                            <span>{{column.DisplayName}}</span><span ng-show="column.required"
+                                                                                 class="required-asteric"> *</span>
+                                                <input type="radio"  ng-model="record[column.dataDefAttr]" />
+                                        </label>
+                                    </div>
+                            <div ng-if="column.type == 'datetime'">
+                                <span>{{column.DisplayName}}</span><span ng-show="column.required"
+                                                                         class="required-asteric"> *</span>
+
+                                <div class="input-group">
+                                    <input type="text" id="{{$index}}" class="form-control "
+                                           ng-model="record[column.dataDefAttr]"
+                                           datepicker-popup="{{format}}"
+                                           is-open="record['isOpen_' + column.dataDefAttr]"
+                                           min-date="minDate" max-date="'2015-06-22'" maxlength="{{column.maxLength}}"
+                                           datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                                           ng-required="true" close-text="Close" name="{{column.dataDefAttr}}"/>
+                                    <button type="button"
+                                            class="btn btn-default glyphicon glyphicon-calendar input-group-addon"
+                                            ng-click="open($event,record,column.dataDefAttr)"></button>
+                                </div>
+                            </div>
+                            <div ng-if="column.type == 'lookup'" style="padding:2px 0px 2px 0px;">
+                                {{column.DisplayName}}<span ng-show="column.required"
+                                                            class="required-asteric"> *</span>
+                                <wipfli-lookup lookup-column="record[column.dataDefAttr]" read-only="column.readOnly"
+                                               on-change-lookup="openLookup(column)"></wipfli-lookup>
+                            </div>
+                            <error-messages form="entityForm" variable="column.dataDefAttr"
+                                            display-name="column.DisplayName" only-on-submit="false"/>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="pull-right visible-xs visible-lg">
+                    <button class="btn-default btn form-group"
+                                    ng-click="onBack(viewDefinition, record[viewDefinition.viewTypes.viewType.idAttribute])">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn-primary btn form-group"
+                                    ng-click="SaveCrmRecord(entityForm, record)">
+                                Save
+                            </button>                    
+                </div>
+            </div>
+        </div>
+
+        <div id="{{viewDefinitionId}}" ng-if="viewDefinition.viewState == 'Create'">
+
+            <!-- Modal -->
+            <div id="myModal" tabindex="-1" aria-labelledby="myModalLabel">
+                <div>
+                    <div>
+                        <div class="visible-xs visible-sm visible-lg spacer row ">
+                            <span class="  col-xs-12">
+                                <span class=" pull-right">
+                                    <button type="button" class="btn btn-default" ng-click="onBack(viewDefinition, SelectedRecordId);">Cancel</button>
+                                    <button type="button" class="btn btn-primary"
+                                            ng-click="CreateCrmRecord(entityForm, data[0])">
+                                        Save
+                                    </button>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="row">
+                            <form name="entityForm" id="entityForm">
+                                <small class="help-block col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                       ng-show="entityForm.$invalid && entityForm.$submitted">Please correct errors
+                                    below and retry
+                                </small>
+                                <div class="col-lg-6 col-md-6 col-sm-6 form-group"
+                                     ng-repeat="column in viewDefinition.viewTypes.viewType.columns.column" has-error>
+                                    <div ng-if="column.type == 'label'">
+                                    {{column.DisplayName}}                                
+                                    </div>
+                                    <div ng-if="column.type == 'text'">
+                                        {{column.DisplayName}}<span ng-show="column.required"
+                                                                    class="required-asteric"> *</span>
+                                        <input class="form-control" type="text" name="{{column.dataDefAttr}}"
+                                               id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                                               ng-model="data[0][column.dataDefAttr]" ng-required="{{column.required}}"
+                                               ng-change="onChangeValue(data[0][column.dataDefAttr], column)">
+                                    </div>
+                                    <div ng-if="column.type == 'multilinetext'">
+                                        {{column.DisplayName}} <span ng-show="column.required"
+                                                                     class="required-asteric"> *</span>
+                                        <textarea class="form-control {{column.valueClass}}" type="text"
+                                                  name="{{column.dataDefAttr}}" id="{{column.dataDefAttr}}"
+                                                  ng-model="data[0][column.dataDefAttr]"
+                                                  maxlength="{{column.maxLength}}"
+                                                  ng-required="{{column.required}}"
+                                                  rows="{{column.minRows}}"
+                                                ></textarea>
+                                    </div>
+                                    <div ng-if="column.type == 'email'">
+                                        {{column.DisplayName}} <span ng-show="column.required" class="required-asteric"> *</span>
+                                        <input class="form-control " type="email" name="{{column.dataDefAttr}}"
+                                               id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                                               ng-model="data[0][column.dataDefAttr]" ng-required="{{column.required}}" 
+                                               ng-change="onChangeValue(data[0][column.dataDefAttr], column)" />
+                                    </div>
+                                    <div ng-if="column.type == 'telephone'">
+                                        {{column.DisplayName}} <span ng-show="column.required"
+                                                                     class="required-asteric"> *</span>
+                                        <input class="form-control " type="text" name="{{column.dataDefAttr}}"
+                                               id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                                               ng-model="data[0][column.dataDefAttr]" ng-required="{{column.required}}">
+                                    </div>
+                                    <div ng-if="column.type == 'wholenumber'">
+                                        {{column.DisplayName}}<span ng-show="column.required"
+                                                                    class="required-asteric"> *</span>
+                                        <input type="text" class="form-control" name="{{column.dataDefAttr}}"
+                                               id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                                               ng-model="data[0][column.dataDefAttr]" ng-required="{{column.required}}">
+                                    </div>
+                                    <div ng-if="column.type == 'money'">
+                                        {{column.DisplayName}}<span ng-show="column.required"
+                                                                    class="required-asteric"> *</span>
+                                        <input class="form-control" type="text" name="{{column.dataDefAttr}}"
+                                               id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                                               ng-model="data[0][column.dataDefAttr].Value"
+                                               ng-required="{{column.required}}">
+                                    </div>
+                                    <div ng-if="column.type == 'datetime'">
+                                        {{column.DisplayName}}<span ng-show="column.required"
+                                                                                 class="required-asteric"> *</span>
+
+                                        <div class="input-group">
+                                            <input type="text" class="form-control"
+                                                   ng-model="data[0][column.dataDefAttr]"
+                                                   datepicker-popup="{{column.format}}" is-open="opened[$index]"
+                                                   min-date="column.minDate" max-date="'2050-06-22'"
+                                                   datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                                                   ng-required="{{column.required}}" close-text="Close" name="{{column.dataDefAttr}}"
+                                                   id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"/>
+                                            <span class="input-group-btn">
+                                                <button type="button"
+                                                        class="btn btn-default"
+                                                        ng-click="openForCreate($event,$index,column.dataDefAttr)">
+                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                </button>
+                                                </span>
+</div>
+                                    </div>
+                                    <div ng-if="column.type == 'picklist'">
+                                        {{column.DisplayName}}<span ng-show="column.required"
+                                                                                 class="required-asteric"> *</span>
+                                        <select class="form-control " name="{{column.dataDefAttr}}"
+                                                ng-required="{{column.required}}"
+                                                ng-model="data[0][column.dataDefAttr]"
+                                                ng-options="allowedValue.Label for allowedValue in column.AllowedValues.AllowedValue">
+                                        </select>
+                                    </div>
+                                    <div ng-if="column.type == 'boolean'">
+                                        <div ng-if="column.format == 'dropdown'">
+                                            {{column.DisplayName}}<span ng-show="column.required"
+                                                                                 class="required-asteric"> *</span>
+                                            <select class="form-control "                                                 
+                                                ng-model="data[0][column.dataDefAttr]"
+                                                    name="{{column.dataDefAttr}}"
+                                                    ng-required="{{column.required}}"
+                                                    >
+                                                <option value="{{column.AllowedValues.AllowedValue[0].Value}}" selected="selected">{{column.AllowedValues.AllowedValue[0].Label}}</option>
+                                                <option value="{{column.AllowedValues.AllowedValue[1].Value}}">{{column.AllowedValues.AllowedValue[1].Label}}</option>
+                                            </select>
+                                         </div>
+                                        <label style="font-weight:100;" ng-if="column.format == 'checkbox'">
+                                            {{column.DisplayName}}<span ng-show="column.required"
+                                                                                 class="required-asteric"> *</span>
+                                            <input type="checkbox"  ng-model="data[0][column.dataDefAttr]" 
+                                            ng-checked="data[0][column.dataDefAttr]" />
+                                        </label>
+                                        <label style="font-weight:100;" ng-if="column.format == 'radio'">
+                                            <span>{{column.DisplayName}}</span><span ng-show="column.required"
+                                                                                 class="required-asteric"> *</span>
+                                                <input type="radio"  ng-model="data[0][column.dataDefAttr]" />
+                                        </label>
+                                    </div>
+                                    <div ng-if="column.type == 'lookup'">
+                                        {{column.DisplayName}}<span ng-show="column.required"
+                                                                    class="required-asteric"> *</span>
+                                        <wipfli-lookup lookup-column="data[0][column.dataDefAttr]"
+                                                       on-change-lookup="openLookup(column)"></wipfli-lookup>
+                                    </div>
+                                    <div ng-if="column.type == 'lookup-hidden'">
+                                        <input type="hidden" name="{{column.dataDefAttr}}" ng-model="data[0][column.dataDefAttr]"/>
+                                               <!--ng-value="updateLookupRecord(data[0],column,eval(column.source))"/>-->
+                                    </div>
+                                    <error-messages form="entityForm" variable="column.dataDefAttr"
+                                                    display-name="column.DisplayName" only-on-submit="false"/>
+                                </div>
+                            </form>
+                        </div>
+                        <hr/>
+                        <div class="visible-xs visible-md visible-lg pull-right">
+                            <button type="button" class="btn btn-default" ng-click="onBack(viewDefinition, SelectedRecordId);">Cancel</button>
+                            <button type="button" class="btn btn-primary"
+                                    ng-click="CreateCrmRecord(entityForm, data[0])">Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div id="searchTile" ng-if="viewDefinition.viewState == 'Search'">
+            <div class="spacer visible-xs row">
+            </div>
+            <form class="{{viewDefinition.viewTypes.viewType.columns.css}}" role="form">
+                <div class="form-group hidden-xs">
+                    <h4 class="form-control-static">{{viewDefinition.title}}</h4>
+                </div>
+                
+
+                    <div ng-if="viewDefinition.viewTypes.viewType.columns.column.length > 0"
+                         ng-repeat="column in viewDefinition.viewTypes.viewType.columns.column"
+                         class="{{column.columnClass}}">
+                        <div ng-if="column.type == 'text'" class="form-group">
+                            {{column.DisplayName}}
+                            <input class="form-control"
+                                   type="text"
+                                   name="column.dataDefAttr"    
+                                placeholder="{{column.placeHolder}}"                               
+                            ng-model="appParameters[column.valueChangeParameter][0]"                                                          
+                                ng-change="onChangeValue(appParameters[column.valueChangeParameter][0],column)">
+                        </div>
+                        <div ng-if="column.type == 'money'" class="form-group">
+                            {{column.DisplayName}} <input class="form-control " type="text"
+                                                          name="column.dataDefAttr"
+                                                          ng-model="data[column.dataDefAttr].Value">
+                        </div>
+                        <div ng-if="column.type == 'number'" class="form-group">
+                            {{column.DisplayName}}
+                            <input type="text" class="form-control" name="column.dataDefAttr"
+                                   ng-model="data[column.dataDefAttr]">
+                        </div>
+                        <div ng-if="column.type === 'picklist'" class="{{column.columnClass}}">
+                            <span ng-if="column.hideDisplayName !== 'true'">{{column.DisplayName}}</span>
+                            <select class="form-control" ng-model="allowedValue.Value" title="{{column.placeHolder}}"
+                                    ng-change="onChangeValue(allowedValue.Value, column)" 
+                                ng-options="allowedValue.Label for allowedValue in column.AllowedValues.AllowedValue">
+                                <option style="display:none" value="">{{column.DisplayName}}</option>
+                                <!--<option ng-selected="data[column.dataDefAttr].Value==allowedValue.Value"
+                                        value="{{allowedValue.Value}}" ng-repeat="allowedValue in
+                                                column.AllowedValues.AllowedValue">
+                                    {{allowedValue.Label}}
+                                </option>-->
+                            </select>
+                        </div>
+                        <div ng-if="column.type == 'datetime'" class="form-group">
+                            <span>{{column.DisplayName}}</span>
+
+                            <div class="input-group">
+                                <input type="text" id="Text1" class="form-control"
+                                       ng-model="data[column.dataDefAttr]"
+                                       datepicker-popup="{{format}}" is-open="data['isOpen_' + column.dataDefAttr]"
+                                       min-date="minDate" max-date="'2015-06-22'"
+                                       datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                                       ng-required="true" close-text="Close"/>
+                                <button type="button"
+                                        class="btn btn-default glyphicon glyphicon-calendar input-group-addon"
+                                        ng-click="open($event,data,column.dataDefAttr)"></button>
+                            </div>
+                        </div>
+                        <div ng-if="column.type == 'lookup'">
+                            {{column.DisplayName}}
+                            <wipfli-lookup lookup-column="data[0][column.dataDefAttr]"
+                                           on-change-lookup="openLookup(column)"></wipfli-lookup>
+                        </div>
+                        <div ng-if="column.type == 'inputgroup'" class="input-group form-group {{column.controlClass}}">
+                            <input id="{{column.dataDefAttr}}" type="text" class="form-control" name="{{column.dataDefAttr}}" 
+                                   placeholder="{{column.placeHolder}}" ng-model="appParameters[column.valueChangeParameter][0]">
+                            <span class="input-group-btn">
+                                <button class="btn btn-xs btn-primary" type="button" ng-click="refresh(data)">
+                                    <span class="glyphicon glyphicon-search"></span><span class="btn-text-xs">Search</span>
+                                </button>
+                               
+                            </span>
+                        </div>
+                        <div ng-if="column.type == 'button'" class="{{column.columnClass}}">
+                            <button  type="button" class="btn btn-xs btn-default btn-new" style="margin-left:5px;"
+                                    ng-click="onCreate();">
+                                <span class="glyphicon glyphicon-plus"></span><span class="btn-text-xs">New</span>
+                            </button>
+                        </div>
+                    </div>
+            
+            </form>
+        </div>
+  
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <table ng-table="tableParams" ng-hide="loadimage"
+                               class="table table-striped table-bordered">
+                            <thead>
+                            <tr class="tableHeader">
+                                <td></td>
+                                <th ng-repeat="column in columns">
+                                    {{column.DisplayName}}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr ng-repeat="record in data[0].records">
+                                <td>
+                                    <input type="radio" value="record[0]" ng-click="selected.item = record"
+                                           name="radiobutton"/>
+                                </td>
+                                <td ng-repeat="column in columns">
+                                    {{getValue(record[column.dataDefAttr])}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-primary" ng-click="ok()">OK</button>
+                        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</wipfli-isotope>

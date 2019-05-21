@@ -1,0 +1,30 @@
+﻿.loadingImage {
+        position: fixed;
+        top: 350px;
+        left: 50%;
+        margin-top: -96px;
+        margin-left: -96px;
+        background-color: #ccc;
+        opacity: .85;
+        width: 152px;
+        height: 152px;
+        z-index: 99999;
+}
+
+.selected {
+  background-color: cadetblue;
+}
+
+
+body {
+    padding: 10px !important;   
+}
+
+.ng-table {
+    border: 1px solid #000;
+}
+
+.jfgBackground {
+    background-color: #8f174d !important;
+    color: white !important;
+}

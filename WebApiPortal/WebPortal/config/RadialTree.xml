@@ -1,0 +1,101 @@
+﻿<viewComposition>
+  <dataDefinitions>
+    <dataDefinition name='Contacts' type='ODATA'>
+      <odataQuery>
+        <entity>Contact</entity>
+        <select>ContactId,FullName,ParentCustomerId</select>
+        <filters>
+          <filter viewParamName='ParentCustomerId' value='' operator=''>ParentCustomerId/Id eq guid'{ParentCustomerId}'</filter>
+          <filter viewParamName='FullName' value='' operator=''>substringof('{FullName}',FullName)</filter>
+        </filters>
+        <expand></expand>
+      </odataQuery>      
+    </dataDefinition>
+    <dataDefinition name='Contact' type='ODATA'>
+      <odataQuery>
+        <entity>Contact</entity>
+        <select>ContactId,FullName,ParentCustomerId</select>
+        <filters>
+          <filter viewParamName='ContactId' value='' operator=''>ContactId eq guid'{ContactId}'</filter>
+        </filters>
+        <expand></expand>
+      </odataQuery>      
+    </dataDefinition>
+    <dataDefinition name='Opportunities' type='ODATA'>
+      <odataQuery>
+        <entity>Opportunity</entity>
+        <select>OpportunityId,Name,ParentAccountId</select>
+        <filters>
+          <filter viewParamName='ParentAccountId' value='' operator=''>ParentAccountId/Id eq guid'{ParentAccountId}'</filter>
+        </filters>
+        <expand></expand>
+      </odataQuery>      
+    </dataDefinition>
+  </dataDefinitions>  
+  <viewDefinitions>
+    <viewDefinition viewDefinitionID='SearchView' type='Search' viewState='Read'>
+      <viewParameters>
+        <viewParameter name='Name' value='' isRoot='false'></viewParameter>
+        <viewParameter name='FullName' value='' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType name='SearchContacts'>
+          <viewData></viewData>
+          <columns>
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_Search.htm</templateUrl>
+      <layoutclass>jumbotron </layoutclass>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='RadialTree'>
+      <viewParameters>
+        <viewParameter name='ParentCustomerId' value='00000000-0000-0000-0000-000000000000' isRoot='true'></viewParameter>
+        <viewParameter name='ParentAccountId' value='00000000-0000-0000-0000-000000000000' isRoot='true'></viewParameter>
+        <viewParameter name='FullName' value='' isRoot='false'></viewParameter>
+        <viewParameter name='ContactId' value='00000000-0000-0000-0000-000000000000' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>        
+          <viewType>
+            <entitySchemaName>Contact</entitySchemaName>
+            <id>ContactId</id>
+            <name>FullName</name>
+            <viewData>Contacts</viewData>
+            <color>blue</color>
+            <columns>
+              <column></column>
+            </columns>
+        </viewType>
+        <viewType>
+          <entitySchemaName>Opportunity</entitySchemaName>
+          <id>OpportunityId</id>
+          <name>Name</name>
+          <viewData>Opportunities</viewData>
+          <color>green</color>
+          <columns>
+            <column></column>
+          </columns>
+        </viewType>        
+      </viewTypes>     
+      <templateUrl>wipfli_RadialTree.htm</templateUrl>
+      <layoutclass></layoutclass>
+    </viewDefinition>
+    <viewDefinition viewDefinitionID='ContactTwoColumnView'>
+      <viewParameters>
+        <viewParameter name='ContactId' value='00000000-0000-0000-0000-000000000000' isRoot='false'></viewParameter>
+      </viewParameters>
+      <viewTypes>
+        <viewType>
+          <entitySchemaName>Contact</entitySchemaName>
+          <viewData>Contact</viewData>
+          <columns>
+            <column dataDefAttr="FullName" DisplayName="Name" width="100" type="text"></column>
+            <column dataDefAttr="ParentCustomerId" DisplayName="Account" width="100" type="lookup"></column>            
+          </columns>
+        </viewType>
+      </viewTypes>
+      <templateUrl>wipfli_TwoColumnView.htm</templateUrl>
+      <layoutclass></layoutclass>
+    </viewDefinition>
+  </viewDefinitions>
+</viewComposition>

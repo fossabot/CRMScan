@@ -1,0 +1,25 @@
+﻿.loadingImage {
+    position: fixed;
+    top: 350px;
+    left: 50%;
+    margin-top: -96px;
+    margin-left: -96px;
+    background-color: #ccc;
+    opacity: .85;
+    /*border-radius: 25px;*/
+    width: 152px;
+    height: 152px;
+    z-index: 99999;
+}
+
+.odd {
+    background-color: #ccc;
+}
+
+.even {
+    background-color: #FFF;
+}
+
+.tableHeader {
+    background-color: lavender;
+}

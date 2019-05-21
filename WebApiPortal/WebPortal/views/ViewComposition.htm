@@ -1,0 +1,59 @@
+﻿<nav class="navbar navbar-inverse navbar-fixed-top custom_navbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand custom_navbar-brand" href="" ng-click="loadDefaultPage()"></a>
+
+            <div class="visible-xs-inline">
+                <label class="h3 page-title ">{{pageSelected.title}}</label>
+            </div>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav" ng-repeat="page in Pages" ng-hide="page.hide">
+                <li><a href="" ng-click="loadViews(page)" data-toggle="collapse"
+                       data-target="#navbar">{{page.title}}</a></li>
+            </ul>
+
+            <!--<ul class="nav navbar-nav">
+                <li><a href="" ng-click="loadPageViews('Email',['create'])" data-toggle="collapse"
+                       data-target="#navbar">Email Contacts</a></li>
+            </ul>-->
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle  collapsed" data-toggle="dropdown" role="button"
+                       aria-expanded="false" data-target="#dropdown">{{LoggedInUserName}}<span class="caret"></span></a>
+                    <ul id="dropdown" class="dropdown-menu bg-primary" role="menu">
+                        <li><a href="" ng-click="loadProfileSettings()" data-toggle="collapse" data-target="#navbar">Profile
+                            Settings</a></li>
+                        <li><a href="" ng-click="logout()">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+<div id="viewCompositionContainer" class="container custom_container">
+    <section class="hidden-xs">
+        <div class="row page-header ">
+            <div class="col-lg-3 col-md-4 col-sm-3"><h2>{{pageSelected.title}}</h2></div>
+        </div>
+    </section>
+    <div ng-repeat="viewDefinition in pageViews" class="{{viewDefinition.layoutclass}}">
+        <ng-include src="viewDefinition.templateUrl">
+        </ng-include>
+
+    </div>
+</div>
+
+

@@ -1,0 +1,78 @@
+﻿<wipfli-isotope>
+<div id="searchTile" ng-controller="ViewController">
+            <div class="spacer visible-xs row">
+            </div>
+            <form class="form-inline " role="form">
+                <div class="form-group hidden-xs">
+                    <h4 class="form-control-static">{{viewDefinition.title}}</h4>
+                </div>
+                <div class="row input-group">
+
+                    <div ng-if="viewDefinition.viewTypes.viewType.columns.column.length > 0"
+                         ng-repeat="column in viewDefinition.viewTypes.viewType.columns.column"
+                         class="{{viewDefinition.viewTypes.viewType.columns.column.columnClass}}">
+                        <div ng-if="column.type == 'text'">
+                            {{column.DisplayName}}
+                            <input class="form-control form-group"
+                                   type="text"
+                                   name="column.dataDefAttr"                        
+                                placeholder="{{column.placeHolder}}"           
+                            ng-model="appParameters[column.valueChangeParameter][0]"                                                                 
+                                ng-change="onChangeValue(appParameters[column.valueChangeParameter][0],column)">
+                        </div>
+                        <div ng-if="column.type == 'money'">
+                            {{column.DisplayName}} <input class="form-control form-group" type="text"
+                                                          name="column.dataDefAttr"
+                                                          ng-model="data[column.dataDefAttr].Value">
+                        </div>
+                        <div ng-if="column.type == 'number'">
+                            {{column.DisplayName}}
+                            <input type="text" class="form-control form-group" name="column.dataDefAttr"
+                                   ng-model="data[column.dataDefAttr]">
+                        </div>
+                        <div ng-if="column.type === 'picklist'">
+                            <span>{{column.DisplayName}}</span>
+                            <select class="form-control form-group" ng-model="data[column.dataDefAttr]">
+                                <option ng-selected="data[column.dataDefAttr].Value==allowedValue.Value"
+                                        value="{{allowedValue.Value}}" ng-repeat="allowedValue in
+                                                column.AllowedValues.AllowedValue">
+                                    {{allowedValue.Label}}
+                                </option>
+                            </select>
+                        </div>
+                        <div ng-if="column.type == 'datetime'">
+                            <span>{{column.DisplayName}}</span>
+
+                            <div class="input-group">
+                                <input type="text" id="Text1" class="form-control form-group"
+                                       ng-model="data[column.dataDefAttr]"
+                                       datepicker-popup="{{format}}" is-open="data['isOpen_' + column.dataDefAttr]"
+                                       min-date="minDate" max-date="'2015-06-22'"
+                                       datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                                       ng-required="true" close-text="Close"/>
+                                <button type="button"
+                                        class="btn btn-default glyphicon glyphicon-calendar input-group-addon"
+                                        ng-click="open($event,data,column.dataDefAttr)"></button>
+                            </div>
+                        </div>
+                        <div ng-if="column.type == 'lookup'">
+                            {{column.DisplayName}}
+                            <wipfli-lookup lookup-column="data[0][column.dataDefAttr]"
+                                           on-change-lookup="openLookup(column)"></wipfli-lookup>
+                        </div>
+                    </div>
+                          <span class="input-group-btn">              
+                   
+                        <button class="btn btn-xs btn-primary" type="button" ng-click="eventHandler('search',viewDefinition.viewTypes.viewType)"><span
+                                class="glyphicon glyphicon-search"></span><span class="btn-text-xs">Search</span>
+                        </button>                             
+                        <button type="button" class="btn btn-xs btn-default btn-new" style="margin-left:5px"
+                                ng-click="onCreate();"><span
+                                class="glyphicon glyphicon-plus"></span><span class="btn-text-xs">New</span>
+                        </button>
+                    </span>
+                </div>
+
+            </form>
+        </div>
+    </wipfli-isotope>

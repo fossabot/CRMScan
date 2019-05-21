@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>MT Contact Capture Application</title>
+    <meta charset="utf-8">
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=10"/>
+
+    <link rel="apple-touch-icon" href="custom/mt/images/apple-touch-icon.png"/>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/bootstrap_theme.min.css" rel="stylesheet"/>
+    <link href="/css/wipfli_site.css" rel="stylesheet"/>
+    <link href="/css/ng-table.min.css" rel="stylesheet"/>
+    <link href="/css/components.css" rel="stylesheet"/>
+    <link href="/css/core.css" rel="stylesheet"/>
+    <link href="/css/layout.css" rel="stylesheet"/>
+    <link href="/css/modules.css" rel="stylesheet"/>
+    <link href="/css/responsive.css" rel="stylesheet"/>
+    <link href="/css/typography.css" rel="stylesheet"/>
+    <link href="/css/theme.css" rel="stylesheet"/>
+    <link href="/css/toaster.min.css" rel="stylesheet"/>
+    <link href="/custom/client/css/theme.css" rel="stylesheet"/>
+    <link href="css/angular-responsive-tables.min.css" rel="stylesheet" />
+
+    <script src="/scripts/vendor/jquery1.7.min.js"></script>
+    <script src="/scripts/vendor/json2.js"></script>
+    <script src="/scripts/vendor/angular.1.3.15/angular.min.js"></script>
+    <script src="/scripts/vendor/angular.1.3.15/angular-messages.min.js"></script>
+    <script src="/scripts/vendor/angular.1.3.15/angular-animate.min.js"></script>
+    <script src="/scripts/vendor/angular.1.3.15/angular-route.min.js"></script>
+    <script src="/scripts/vendor/angular.1.3.15/angular-cookies.min.js"></script>
+    <script src="/scripts/vendor/jquery.xml2json.js"></script>
+    <script src="/scripts/vendor/d3.v3.min.js"></script>
+    <script src="/scripts/vendor/SDK.REST.js"></script>
+    <script src="/scripts/vendor/ui-bootstrap-tpls-0.11.2.min.js"></script>
+    <script src="/scripts/vendor/bootstrap.min.js"></script>
+    <script src="/scripts/vendor/spin.js"></script>
+    <script src="/scripts/vendor/angular-spinner.min.js"></script>
+    <script src="/scripts/vendor/toaster.min.js"></script>
+    <script src="scripts/vendor/xml2json.min.js"></script>
+    <script src="scripts/vendor/ng-file-upload.min.js"></script>
+    <script src="scripts/vendor/FileAPI.min.js"></script>
+    <script src="scripts/vendor/download.min.js"></script>
+    <script src="scripts/vendor/angular-responsive-tables.min.js"></script>
+
+    <script src="/scripts/PreLoad.js"></script>
+    <script src="/scripts/App.js"></script>
+    <script src="/scripts/Constants.js"></script>
+
+    <script src="/scripts/controllers/ViewCompositionController.js"></script>
+    <script src="/scripts/controllers/ViewController.js"></script>
+    <script src="/scripts/controllers/HomeController.js"></script>
+    <script src="/scripts/controllers/LoginController.js"></script>
+    <script src="scripts/controllers/FileUploadController.js"></script>
+
+    <script src="/scripts/directives/IsotopeDirective.js"></script>
+    <script src="/scripts/directives/LookupDirective.js"></script>
+    <script src="/scripts/directives/MultiLookupDirective.js"></script>
+    <script src="/scripts/directives/FormValidationDirectives.js"></script>
+    <script src="/scripts/directives/OrgChartDirective.js"></script>
+    <script src="scripts/directives/cdataDirective.js"></script>
+    <script src="scripts/directives/htmlDirective.js"></script>
+    <script src="scripts/directives/binaryimagedirective.js"></script>
+    <script src="scripts/directives/binarydatadirective.js"></script>
+
+    <script src="/scripts/services/CrmDataService.js"></script>
+    <script src="/scripts/services/ImageService.js"></script>
+    <script src="/scripts/services/MetadataService.js"></script>
+    <script src="/scripts/services/ODataRetrievalService.js"></script>
+    <script src="/scripts/services/PortalApiService.js"></script>
+    <script src="/scripts/services/ViewCompositionService.js"></script>
+    <script src="/scripts/services/AuthenticationService.js"></script>
+    <script src="/scripts/services/SpinnerService.js"></script>
+    <script src="/scripts/businesslogic/ResponseType.js"></script>
+    <script src="scripts/directives/buttondirective.js"></script>
+    <script src="scripts/controllers/ModalController2.js"></script>
+    <script type="text/javascript">
+        bootStrapApp();
+    </script>
+</head>
+
+<body>
+<ng-view></ng-view>
+<toaster-container toaster-options="{'position-class': 'toast-top-full-width'}"></toaster-container>
+<textarea style="visibility: hidden" id="_dummy"></textarea>
+
+<div class="spinner-container" id="app-spinner" us-spinner="{radius:20, width:8, length: 16}"
+     spinner-key="app-spinner"></div>
+</body>
+
+</html>

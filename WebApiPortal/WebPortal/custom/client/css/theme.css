@@ -1,0 +1,130 @@
+/* LAYOUT STYLES - Overridden */
+.custom_navbar-brand {
+    COLOR: #fff !important;
+    background: url('/custom/client/images/logo.PNG') no-repeat;
+    width: 64px;
+    background-position: center;
+    background-size: contain;
+}
+
+.custom_navbar {
+    background-color: #db011c;
+    border-bottom: 1px solid #db011c;
+}
+
+.no-left-button {
+    margin-left: -62px; /* (-30 -.custom-navbar.width(=64)/2) */
+}
+
+.navbar-inverse {
+    background-image: linear-gradient(to bottom, #db011c 0px, #DB011C 100%);
+    background-repeat: repeat-x;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: #db011c;
+    color: white;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: white;
+}
+
+.help-block {
+    color: #a94442;
+}
+
+.tile {
+    border-bottom: 1px solid grey;
+    /*background-color: #FFF;*/
+}
+
+div.tile-box :hover {
+    /*background-color: #F0F0F0;*/
+}
+
+.navbar-header {
+    text-align: center;
+}
+
+.page-header {
+    margin-bottom: 0px;
+    color: #db011c;
+}
+
+.btn-primary {
+    background-image: linear-gradient(to bottom, #db011c 0, #dc001b 100%);
+    border-color: #db011c;
+}
+
+.btn-primary:active, .btn-primary:hover, .btn-primary:focus {
+    background-color: #db011c;
+    border-color: #db011c;
+    outline-color: #db011c;
+}
+
+.btn-new {
+    min-width: 45px;
+}
+
+.txt-primary {
+    color: #db011c;
+}
+
+.bg-primary {
+    color: #fff;
+    background-color: #db011c;
+}
+
+.email-page-container {
+    margin-top: 20px;
+}
+
+.fullname-listview {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.trade-listview {
+    font-size: 11px;
+}
+
+.toast-top-full-width {
+    top: 60px;
+}
+
+.contact-search {
+    padding-right: 2px;
+}
+
+.contact-search-buttons {
+    padding-left: 2px;
+}
+
+.contact-search-buttons button {
+
+}
+
+.row .additional-information:last-child {
+    display: none;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}

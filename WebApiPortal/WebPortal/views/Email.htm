@@ -1,0 +1,51 @@
+﻿<div class="email-page-container" ng-controller="ViewController">
+    <div class="spacer">
+    </div>
+    <form class="row" name="emailForm">
+        <div class="col-lg-6 col-md-6 col-sm-6" ng-repeat="column in viewDefinition.viewTypes.viewType.columns.column">
+            <div ng-if="column.type == 'text'">
+                {{column.DisplayName}}
+                <input class="form-control" type="text" name="{{column.dataDefAttr}}" id="{{column.dataDefAttr}}"
+                       ng-model="data[0][column.dataDefAttr]" maxlength="{{column.maxLength}}"
+                       ng-readonly="column.readOnly">
+            </div>
+            <div ng-if="column.type == 'checkbox'" class="checkbox">
+                <label> <input type="checkbox" name="{{column.dataDefAttr}}"
+                               id="{{column.dataDefAttr}}"
+                               ng-model="data[0][column.dataDefAttr]">
+                    {{column.DisplayName}}
+                </label>
+            </div>
+            <div ng-if="column.type == 'multilinetext'">
+                {{column.DisplayName}}
+                <textarea class="form-control form-group {{column.valueClass}}" type="text" rows="{{column.minRows}}"
+                          name="{{column.dataDefAttr}}" ng-show="true"
+                          id="{{column.dataDefAttr}}" maxlength="{{column.maxLength}}"
+                          ng-model="data[0][column.dataDefAttr]" ng-readonly="column.readOnly"></textarea>
+            </div>
+            <div ng-if="column.type == 'lookup'">
+                {{column.DisplayName}}
+                <wipfli-lookup lookup-column="data[0][column.dataDefAttr]"
+                               on-change-lookup="openLookup(column)"></wipfli-lookup>
+            </div>
+            <div ng-if="column.type == 'multi-lookup'">
+                {{column.DisplayName}}
+                <wipfli-multi-lookup lookup-column="data[0][column.dataDefAttr]"
+                                     on-change-lookup="openMultiLookup(column)"
+                        ></wipfli-lookup>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <span class=" pull-right">
+            <button class="btn-default btn" ng-click="onBack(viewDefinition, null)">
+                Cancel
+            </button>
+            <button class="btn btn-primary" ng-click="previewEmail(data[0],'PreviewEmail')">
+                Proof Email                
+            </button>
+            
+        </span>
+    </div>    
+</div>

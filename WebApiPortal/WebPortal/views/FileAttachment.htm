@@ -1,0 +1,93 @@
+﻿<div class="email-page-container" ng-controller="fileController">
+    <span><b>{{viewDefinition.title}}</b></span>
+    <!--<div class="spacer"></div>
+    <div class="visible-xs spacer row ">
+                    <span class="  col-xs-12">
+                        <span class=" pull-right">
+                            <button class="btn-default btn form-group"
+                                    ng-click="onBack(viewDefinition, record[viewDefinition.viewTypes.viewType.idAttribute])">
+                                Cancel
+                            </button>                            
+                        </span>
+                    </span>
+                </div>-->
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+    <form class="row" name="notesForm">
+        <!--<label style="font-weight:100;">Is Profile Picture?  <input type="checkbox" title="Is Profile Picture?" ng-model="isProfilePicture" /></label>-->
+       
+        <div>
+            <div class="col-xs-12">
+                <div class="mod-content issue-drop-zone">
+                   <!-- <div class="issue-drop-zone">
+                        <!--<input ngf-drop="" ngf-select="" ng-model="files" ng-model-rejected="rejFiles" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'image/*,application/pdf'" ngf-drop-available="true" ngf-select="" ng-model="files" ngf-multiple="true" class="issue-drop-zone__target" />-->
+                        <!--<span class="issue-drop-zone__text"><span class="issue-drop-zone__drop-icon"> </span><a ngf-select="" ng-model="files" ngf-multiple="true"><span>Browse</span></a></span>
+                    </div>-->
+                    <!--<ol id="attachment_thumbnails" class="item-attachments" data-sort-key="fileName" data-sort-order="asc"></ol>-->
+                    <div ngf-drop="" ngf-select="" ng-model="files"
+                         ng-model-rejected="rejFiles"
+                         ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}"
+                         class="ng-valid ng-dirty issue-drop-zone" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'.*'" ngf-drop-available="dropAvailable">
+                        <!--<div ng-hide="dropAvailable" class="ng-hide">File Drop not available</div>-->
+                        <!--<div ng-show="dropAvailable" class="">Or Drop File(s)</div>-->
+                        <!--<span>Add picture or attachments to the contact </span>
+                        <a ngf-select="" ng-model="files" ngf-multiple="false"><span>Browse</span></a>-->
+                    </div>
+                </div>
+                <!--<div class="btn btn-primary fileupload">Choose File
+                    <input type="file" ng-model="selectedFiles" ngf-select accept="image/*;capture=camera" class="inputfile"/>
+                </div>-->
+                <span class="btn btn-primary btn-file">
+                    Choose File <input type="file" ng-model="selectedFiles" ngf-select/>
+                </span>
+                <div class="pull-right">
+                    <button ng-disabled="!notesForm.$valid" class="btn btn-primary" ng-click="uploadAFile(selectedFiles)">Upload</button> 
+                    <button class="btn-default btn form-group" ng-click="onBack(viewDefinition, SelectedRecordId)">
+                                    Cancel
+                                </button>
+                </div>
+                <div class="spacer"></div>
+                <div id="inputfilename" ng-show="showFileNameInput"><span><b>File Name:</b></span><input type="text" ng-model="currentFileName"/><span>{{currentFileExt}}</span></div>
+                <div class="spacer"></div>
+                
+            </div>
+        </div>
+    </form>
+    <!--<div class="row">
+        <span class=" pull-right">
+        </span>
+    </div>-->
+
+    <div class="container">
+            <!--<div class="progress" ng-repeat="file in files">
+                <span>{{file}}</span>
+                <div class="progress-bar" role="progressbar" aria-valuenow="{{file.fileUploadProgress}}" aria-valuemin="0" aria-valuemax="100" ng-style="progressStyle">
+                </div>
+            </div>-->
+        <span class="progress" ng-show="files[0].progress >= 0">
+			<div style="width:{{files[0].progress}}%" ng-bind="files[0].progress + '%'" class="ng-binding"></div>
+		</span>
+            <span ng-show="files[0].result">Upload Successful</span>
+     </div>
+    <!--<div ng-show="{{fileUploadProgress<=100}}">
+        <progressbar value="fileUploadProgress" type="success" animate="true" max="100">
+        </progressbar>
+    </div>-->
+    
+    <table class="table table-striped">
+        <tr data-ng-repeat="file in files">
+            <td>
+                <div class="preview">
+                    <a title="text" download="text" data-gallery>{{file.name}}</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!--<div class="pull-left hidden-xs">
+          <button class="btn-default btn form-group"
+                                    ng-click="onBack(viewDefinition, record[viewDefinition.viewTypes.viewType.idAttribute])">
+                                Cancel
+          </button>                                          
+    </div>-->
+</div>
+

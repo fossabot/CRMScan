@@ -1,0 +1,10 @@
+﻿<wipflitwocolumnview>
+    <div ng-repeat="record in data[0].records">  
+        <div ng-repeat="column in viewDefinition.viewTypes.viewType.columns.column">
+            <div ng-if="column.type == 'text'"><label style="width:100px;">{{column.DisplayName}} </label>{{record[column.dataDefAttr]}}<label></label></div> 
+            <div ng-if="column.type == 'money'"><label style="width:100px;">{{column.DisplayName}} </label> <label>{{record[column.dataDefAttr].Value}}</label></div> 
+            <div ng-if="column.type == 'picklist'"><label style="width:100px;">{{column.DisplayName}} </label><label>{{record[column.dataDefAttr].Value}}</label></div> 
+            <div ng-if="column.type == 'lookup'"><label style="width:100px;">{{column.DisplayName}} </label><label>{{record[column.dataDefAttr].Name}}</label></div>          
+        </div>
+    </div> 
+</wipflitwocolumnview>

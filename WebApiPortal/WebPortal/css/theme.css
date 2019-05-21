@@ -1,0 +1,283 @@
+/* TYPOGRAPHY */
+@font-face {
+    font-family: 'MyFont';
+    src: url('../fonts/Abel-Regular.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3�5 */
+}
+
+html, body, .full-height {
+    height: 100%;
+}
+
+body {
+    font-family: sans-serif;
+    -MS-TEXT-SIZE-ADJUST: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+/* LAYOUT STYLES */
+.custom_container {
+}
+
+.custom_signin_container {
+
+    margin-top: 0%;
+    /*transform: translateY(20%);
+    -webkit-transform: translateY(20%);
+    -ms-transform: translateY(20%);*/
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+}
+
+.custom_logo {
+}
+
+.logo-big {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.logo-big img {
+    width: 95%;
+}
+
+.custom_navbar-brand {
+    COLOR: #fff !important;
+    background: url('/images/logo.PNG') no-repeat;
+    width: 120px;
+}
+
+.custom_navbar {
+    background-color: #6185cd;
+    border-bottom: 1px solid #6185cd;
+}
+
+.custom_navbar .navbar-nav > LI > A:link {
+    COLOR: #fff;
+}
+
+.page-title {
+    color: white;
+    margin-top: 15px;
+    margin-bottom: 0px;
+
+}
+
+.no-left-button {
+    margin-left: -90px; /* (-30 -.custom-navbar.width(=120)/2) */
+}
+
+.page-header.visible-xs {
+    margin-top: 55px;
+    position: static;
+}
+
+.spacer {
+    margin-top: 55px;
+    position: static;
+}
+
+.navbar-inverse {
+    background-image: linear-gradient(to bottom, #6185cd 0px, #6185cd 100%);
+    background-repeat: repeat-x;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: #ebebeb;
+    color: #808080;
+}
+
+.custom_navbar .navbar-nav > LI > A:visited {
+    COLOR: #fff;
+}
+
+.custom_sidebar {
+
+}
+
+.custom_sidebar {
+
+}
+
+.custom_nav-sidebar {
+
+}
+
+.custom_nav-sidebar > li > a:hover {
+
+}
+
+.custom_nav-sidebar > .active > a:hover {
+
+}
+
+.custom_btn-cust {
+}
+
+.custom_table th {
+    background-color: #808080;
+    color: #fff;
+    font-weight: normal;
+}
+
+.tile {
+    background-color: #ebebeb;
+    padding: 7px 20px;
+    margin-left: -15px;
+    margin-right: -15px;
+    line-height: 1;
+}
+
+.tile span {
+    word-wrap: break-word;
+}
+
+div.tile-box :hover {
+    background-color: #ebebeb;
+}
+
+.required-asteric {
+    color: red;
+}
+
+.help-block {
+    color: #a94442;
+}
+
+.fullname-lookup {
+    max-width: 140px;
+}
+
+.ro-view-light-bg {
+    background-color: #fff;
+}
+
+.ro-view {
+    background-color: #ebebeb;
+}
+
+.ro-view, .ro-view-light-bg {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    word-wrap: break-word;
+}
+
+.ro-view-display-name {
+    color: #909090;
+    font-weight: normal;
+    font-size: 11px;
+}
+
+.trade-lookup {
+    max-width: 100px;
+}
+
+.multi-select-lookup .btn, .single-select-lookup .btn {
+    height: 100% !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.multi-select-lookup label, .single-select-lookup label {
+    height: auto;
+    min-height: 34px;
+}
+
+.multi-select-lookup .badge {
+    margin-bottom: 2px;
+}
+
+.pager {
+    margin: 5px 2px;
+}
+
+.pager li > a {
+    padding: 3px 14px;
+}
+
+.badge {
+    padding: 5px 9px;
+    background-color: #F0F0F0;
+    color: #343434;
+}
+
+.badge .content {
+    display: inline-block;
+    padding-top: 3px;
+    white-space: normal;
+    max-width: 150px;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+.badge .close {
+    margin-left: 10px;
+    font-size: 130%;
+    opacity: 0.7;
+
+}
+
+.spinner-container {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 10000;
+    display: none;
+}
+
+.divider, .divider-lg {
+    border-top: 1px solid grey;
+    margin: 0;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.divider-lg {
+    padding-top: 18px;
+    padding-bottom: 0px;
+}
+
+.lookup-results {
+    word-wrap: break-word;
+}
+
+.btn-text-xs {
+    font-size: x-small;
+    display: block;
+    line-height: 1.2;
+}
+
+.alert {
+    padding: 5px;
+}
+
+#toast-container.toast-email .toast {
+    padding: 20px;
+    padding-left: 62px;
+}
+
+.multi-select-search .col-xs-5, .multi-select-search .col-xs-5, .multi-select-search .col-xs-2 {
+    padding: 2px;
+}
+
+.auto-expand {
+
+}
+
+input[type=search]::-webkit-search-cancel-button {
+    display: none;
+}
+
+.pre-formatted {
+    white-space: pre-wrap;
+}

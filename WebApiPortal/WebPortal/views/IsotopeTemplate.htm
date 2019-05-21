@@ -1,0 +1,32 @@
+﻿<div id="container" ng-if="viewDefinition.viewState = 'Read'" style="height:100%;"> 
+    <div class="element-item" style="width:300px;height:200px;" ng-repeat="record in data[0].records"> 
+        <div ng-repeat="column in viewDefinition.columns.column">
+            <label>{{column.DisplayName}}</label> <p>{{getAttributeValue(record[column.dataDefAttr])}}</p>
+        </div>
+    </div>
+</div>
+<div id="Div1" ng-if="viewDefinition.viewState = 'Edit'" class="{{viewDefinition.layoutclass}}"> 
+    <div ng-model=data[0].records id="{{record[viewDefinition.idAttribute]}}" class="element-item" style="width:300px;height:200px;" ng-repeat="record in data[0].records" ng-init="count=0" ng-click="onSelect(record[viewDefinition.idAttribute])"> 
+            <div ng-repeat="column in viewDefinition.columns.column"> 
+                <div ng-if="column.type == 'text'">{{column.DisplayName}} <input type="text" name="column.dataDefAttr" ng-model="record[column.dataDefAttr]"></div> 
+                <div ng-if="column.type == 'money'">{{column.DisplayName}} <input type="text" name="column.dataDefAttr" ng-model="record[column.dataDefAttr].Value"></div> 
+                <div ng-if="column.type == 'picklist'">{{column.DisplayName}} <input type="text" name="column.dataDefAttr" ng-model="record[column.dataDefAttr].Value"></div> 
+                <div ng-if="column.type == 'lookup'">{{column.DisplayName}} <input type="text" name="column.dataDefAttr" ng-model="record[column.dataDefAttr].Name"></div> 
+            </div>        
+            <button class="btn" ng-click="SaveCrmRecord(record)">Save</button> 
+            <div id="Div2" ng-click="onSubViewExpanded(record[viewDefinition.idAttribute])" style="cursor:pointer;">SubView</div> 
+    </div>
+</div>
+<div id="Div3" ng-if="viewDefinition.viewState = 'Create'" class="{{viewDefinition.layoutclass}}">
+    <div ng-repeat="column in viewDefinition.columns.column">
+        <div ng-if="column.type == 'text'">{{column.DisplayName}}
+            <input type="text" name="column.dataDefAttr" ng-model="createEntity[column.dataDefAttr]"></div>
+        <div ng-if="column.type == 'money'">{{column.DisplayName}}
+            <input type="text" name="column.dataDefAttr" ng-model="createEntity[column.dataDefAttr].Value"></div>
+        <div ng-if="column.type == 'picklist'">{{column.DisplayName}}
+            <input type="text" name="column.dataDefAttr" ng-model="createEntity[column.dataDefAttr].Value"></div>
+        <div ng-if="column.type == 'lookup'">{{column.DisplayName}}
+            <input type="text" name="column.dataDefAttr" ng-model="createEntity[column.dataDefAttr].Name"></div>
+    </div>
+    <button class="btn" ng-click="CreateCrmRecord(createEntity)">Create</button>
+</div>

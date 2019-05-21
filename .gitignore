@@ -1,0 +1,10 @@
+.svn
+obj
+bin
+*.suo
+*.user
+**/.idea
+WebApiPortal/WebAPI/logs/PortalLog.txt
+WebApiPortal/packages/
+WebApiPortal/WebAPI/logs/
+WebApiPortal/.vs/Wipfli_Portal/v16/Server/sqlite3/

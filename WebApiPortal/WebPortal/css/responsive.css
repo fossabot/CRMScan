@@ -1,0 +1,19 @@
+
+/* iPads (portrait and landscap e) */
+@media only screen and (min-width: 768px) and (max-width: 1024px)
+{
+.form-signin {margin-top:20%;}
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) 
+{
+.form-signin {margin-top:25%;}
+}
+
+/* Smartphones (portrait and landscape)*/
+@media only screen and (min-width : 320px) and (max-width : 480px)
+{
+.form-signin {margin-top:45%;}
+.dropdown-menu > li > a {color:#fff;}
+}
